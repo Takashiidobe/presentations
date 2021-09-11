@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>index</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/theme/simple.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="typeclasses" class="slide level1">
+<h1>Typeclasses</h1>
+<p>Jan 2021</p>
+<p>Takashi Idobe</p>
+</section>
+<section class="slide level1">
+
+<iframe width="807" height="454" src="https://www.youtube.com/embed/xE5EcHuz52I?start=843&amp;end=879" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</section>
+<section class="slide level1">
+
+<p>Apple invented protocol-oriented programming:</p>
+<p><em>Protocol Oriented Programming in Swift</em></p>
+<p>by Dave Abrahams</p>
+<ul>
+<li>“Protocols are central to Swift”</li>
+<li>“Protocols make it easy to extend classes, that’s why we made Swift the first protocol oriented programming language”</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><a href="./assets/output.mp3">Audio</a></p>
+</section>
+<section class="slide level1">
+
+<p>I watched a video today on Swift … about ‘protocol oriented programming’ … and they basically just introduced typeclasses and they were like ‘We invented this, it’s amazing’</p>
+</section>
+<section class="slide level1">
+
+<h3 id="typeclasses-in-haskell">Typeclasses in Haskell</h3>
+<p>Haskell from 1988</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> <span class="dt">Eq</span> a <span class="kw">where</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="ot">  (==) ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="ot">  (/=) ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  x <span class="op">==</span> y <span class="ot">=</span> <span class="fu">not</span> (x <span class="op">/=</span> y)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  x <span class="op">/=</span> y <span class="ot">=</span> <span class="fu">not</span> (x <span class="op">==</span> y)</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">data</span> <span class="dt">Point</span> <span class="ot">=</span> <span class="dt">Point</span> <span class="dt">Float</span> <span class="dt">Float</span> <span class="kw">deriving</span>(<span class="dt">Show</span>, <span class="dt">Eq</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">Prelude</span><span class="op">&gt;</span> <span class="dt">Point</span> <span class="dv">1</span> <span class="dv">2</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="dt">Point</span> <span class="fl">1.0</span> <span class="fl">2.0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="dt">Prelude</span><span class="op">&gt;</span> <span class="dt">Point</span> <span class="dv">1</span> <span class="dv">2</span> <span class="op">==</span> <span class="dt">Point</span> <span class="dv">1</span> <span class="dv">2</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="dt">True</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="dt">Prelude</span><span class="op">&gt;</span> <span class="dt">Point</span> <span class="dv">2</span> <span class="dv">1</span> <span class="op">/=</span> <span class="dt">Point</span> <span class="dv">1</span> <span class="dv">2</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="dt">True</span></span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p><a href="https://people.csail.mit.edu/dnj/teaching/6898/papers/wadler88.pdf">Typeclasses in 1988</a></p>
+</section>
+<section class="slide level1">
+
+<h3 id="protocols-in-swift">Protocols in Swift</h3>
+<p>Swift in 2018</p>
+<pre class="swift"><code>protocol IsEqual {
+    static func == (lhs: Self, rhs: Self) -&gt; Bool
+    static func != (lhs: Self, rhs: Self) -&gt; Bool
+}</code></pre>
+<pre class="swift"><code>struct Point : Equatable {
+    var x: Double
+    var y: Double
+}</code></pre>
+<pre class="swift"><code>print(Point(x: 1, y: 2) == Point(x: 1, y: 2)) // true
+print(Point(x: 2, y: 1) != Point(x: 1, y: 2)) // true</code></pre>
+</section>
+<section class="slide level1">
+
+<p>If you’re 30 years late, you must be the first to implement it</p>
+<p>Apple has great marketing</p>
+</section>
+<section class="slide level1">
+
+<p>What does this print out in go?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">func</span> main() {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>  x := <span class="dv">1</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>  y := <span class="dv">2</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>  z := math.Min(x, y)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>  fmt.Println(z)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>}</span></code></pre></div>
+<p>FAIL: cannot use a (type int) as type float64 in argument to math.Min</p>
+</section>
+<section class="slide level1">
+
+<p><a href="https://www.destroyallsoftware.com/talks/wat">Wat</a></p>
+</section>
+<section class="slide level1">
+
+<h3 id="generics-in-c">Generics in C++</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">auto</span> add(<span class="kw">auto</span> a, <span class="kw">auto</span> b) { <span class="cf">return</span> a + b; }</span></code></pre></div>
+<p>I’ve never said that these types were addable.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>add(<span class="st">&quot;hello&quot;</span>, <span class="dv">2</span>);</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="concepts-in-c">Concepts in C++</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">template</span> &lt;NumericType T&gt;</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="kw">auto</span> add(T a, T b) -&gt; T { <span class="cf">return</span> a + b; }</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="numeric-types-in-swift">Numeric types in Swift</h3>
+<pre class="swift"><code>func add&lt;T:Numeric&gt;(a: T, b: T) -&gt; T {
+    a + b
+}</code></pre>
+</section>
+<section class="slide level1">
+
+<h3 id="typeclasses-in-rust">Typeclasses in Rust</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">fn</span> add<span class="op">&lt;</span>T<span class="op">:</span> <span class="pp">std::ops::</span>add<span class="op">&gt;</span>(a<span class="op">:</span> T<span class="op">,</span> b<span class="op">:</span> T) <span class="op">-&gt;</span> T <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>  a <span class="op">+</span> b</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="typeclasses-in-haskell-1">Typeclasses in Haskell</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">class</span> <span class="dt">Num</span> a <span class="kw">where</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="ot">  add ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="shapes-in-haskell">Shapes in Haskell</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">class</span> <span class="dt">Shape</span> a <span class="kw">where</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="ot">  name ::</span> a <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="ot">  area ::</span> a <span class="ot">-&gt;</span> <span class="dt">Float</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="ot">  perimeter ::</span> a <span class="ot">-&gt;</span> <span class="dt">Float</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="kw">data</span> <span class="dt">Circle</span> <span class="ot">=</span> <span class="dt">Circle</span> {<span class="ot">r ::</span> <span class="dt">Float</span>}</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a><span class="kw">data</span> <span class="dt">Rectangle</span> <span class="ot">=</span> <span class="dt">Rectangle</span> {<span class="ot">w ::</span> <span class="dt">Float</span>,<span class="ot"> h ::</span> <span class="dt">Float</span>}</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a><span class="kw">instance</span> <span class="dt">Shape</span> <span class="dt">Circle</span> <span class="kw">where</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>  name (<span class="dt">Circle</span> _) <span class="ot">=</span> <span class="st">&quot;Circle&quot;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>  area (<span class="dt">Circle</span> r) <span class="ot">=</span> <span class="fu">pi</span> <span class="op">*</span> r <span class="op">^</span> <span class="dv">2</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a>  perimeter (<span class="dt">Circle</span> r) <span class="ot">=</span> <span class="dv">2</span> <span class="op">*</span> <span class="fu">pi</span> <span class="op">*</span> r</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a><span class="kw">instance</span> <span class="dt">Shape</span> <span class="dt">Rectangle</span> <span class="kw">where</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true"></a>  name (<span class="dt">Rectangle</span> _ _) <span class="ot">=</span> <span class="st">&quot;Rectangle&quot;</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a>  area (<span class="dt">Rectangle</span> w h) <span class="ot">=</span> w <span class="op">*</span> h</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true"></a>  perimeter (<span class="dt">Rectangle</span> w h) <span class="ot">=</span> <span class="dv">2</span> <span class="op">*</span> w <span class="op">*</span> <span class="dv">2</span> <span class="op">*</span> h</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true"></a><span class="ot">printArea ::</span> <span class="dt">Shape</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">IO</span>()</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true"></a>printArea s <span class="ot">=</span> <span class="fu">putStrLn</span>(<span class="st">&quot;My area is: &quot;</span> <span class="op">++</span> <span class="fu">show</span> (area s) <span class="op">++</span> <span class="st">&quot;\n&quot;</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true"></a>  printArea <span class="op">$</span> <span class="dt">Circle</span> <span class="dv">10</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true"></a>  printArea <span class="op">$</span> <span class="dt">Rectangle</span> <span class="dv">10</span> <span class="dv">20</span></span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="shapes-in-swift">Shapes in Swift</h3>
+<pre class="swift"><code>protocol Shape {
+    func name() -&gt; String;
+    func area() -&gt; Float;
+    func perimeter() -&gt; Float;
+}
+
+struct Rectangle : Shape {
+    let l: Float;
+    let w: Float;
+    init(l: Float, w: Float) { self.l = l; self.w = w; }
+    func name() -&gt; String { &quot;Rectangle&quot; }
+    func area() -&gt; Float { l * w }
+    func perimeter() -&gt; Float { 2 * (l * w) }
+}
+
+struct Circle : Shape {
+    let r: Float;
+    init(r: Float) { self.r = r; }
+    func name() -&gt; String { &quot;Circle&quot; }
+    func area() -&gt; Float { r * r * Float.pi }
+    func perimeter() -&gt; Float { 2 * Float.pi * r }
+}
+
+func print_area(s: Shape) { print(s.get_area()) }
+
+func main() {
+    print_area(s: Circle(r: 10))
+    print_area(s: Rectangle(l: 10, w: 20))
+}</code></pre>
+</section>
+<section class="slide level1">
+
+<h3 id="shapes-in-rust">Shapes in Rust</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::fmt::</span><span class="bu">Debug</span><span class="op">;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="kw">trait</span> Shape <span class="op">{</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>    <span class="kw">fn</span> get_name(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">String</span><span class="op">;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>    <span class="kw">fn</span> get_area(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">f32</span><span class="op">;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>    <span class="kw">fn</span> get_perimeter(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">f32</span><span class="op">;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Debug</span><span class="at">)]</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a><span class="kw">struct</span> Circle <span class="op">{</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a>    r<span class="op">:</span> <span class="dt">f32</span><span class="op">,</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a>    name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a><span class="kw">impl</span> Circle <span class="op">{</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a>    <span class="kw">fn</span> new(r<span class="op">:</span> <span class="dt">f32</span>) <span class="op">-&gt;</span> Circle <span class="op">{</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a>        Circle <span class="op">{</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a>            r<span class="op">,</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a>            name<span class="op">:</span> <span class="st">&quot;Circle&quot;</span><span class="op">.</span>to_string()<span class="op">,</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a>        <span class="op">}</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true"></a><span class="kw">impl</span> Shape <span class="kw">for</span> Circle <span class="op">{</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true"></a>    <span class="kw">fn</span> get_name(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>name<span class="op">.</span>clone()</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true"></a></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true"></a>    <span class="kw">fn</span> get_area(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">f32</span> <span class="op">{</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>r <span class="op">*</span> <span class="kw">self</span><span class="op">.</span>r <span class="op">*</span> <span class="dv">3.14</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true"></a></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true"></a>    <span class="kw">fn</span> get_perimeter(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">f32</span> <span class="op">{</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>r <span class="op">*</span> <span class="dv">2.0</span> <span class="op">*</span> <span class="dv">3.14</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true"></a></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Debug</span><span class="at">)]</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true"></a><span class="kw">struct</span> Rectangle <span class="op">{</span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true"></a>    l<span class="op">:</span> <span class="dt">f32</span><span class="op">,</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true"></a>    w<span class="op">:</span> <span class="dt">f32</span><span class="op">,</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true"></a>    name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true"></a></span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true"></a><span class="kw">impl</span> Rectangle <span class="op">{</span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true"></a>    <span class="kw">fn</span> new(l<span class="op">:</span> <span class="dt">f32</span><span class="op">,</span> w<span class="op">:</span> <span class="dt">f32</span>) <span class="op">-&gt;</span> Rectangle <span class="op">{</span></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true"></a>        Rectangle <span class="op">{</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true"></a>            l<span class="op">,</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true"></a>            w<span class="op">,</span></span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true"></a>            name<span class="op">:</span> <span class="st">&quot;Rectangle&quot;</span><span class="op">.</span>to_string()<span class="op">,</span></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true"></a>        <span class="op">}</span></span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true"></a></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true"></a><span class="kw">impl</span> Shape <span class="kw">for</span> Rectangle <span class="op">{</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true"></a>    <span class="kw">fn</span> get_name(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>name<span class="op">.</span>clone()</span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true"></a></span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true"></a>    <span class="kw">fn</span> get_area(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">f32</span> <span class="op">{</span></span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>l <span class="op">*</span> <span class="kw">self</span><span class="op">.</span>w</span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true"></a></span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true"></a>    <span class="kw">fn</span> get_perimeter(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">f32</span> <span class="op">{</span></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true"></a>        (<span class="kw">self</span><span class="op">.</span>l <span class="op">+</span> <span class="kw">self</span><span class="op">.</span>w) <span class="op">*</span> <span class="dv">2.0</span></span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true"></a></span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true"></a><span class="kw">fn</span> print_area<span class="op">&lt;</span>T<span class="op">&gt;</span>(t<span class="op">:</span> T)</span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true"></a><span class="kw">where</span></span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true"></a>    T<span class="op">:</span> Shape <span class="op">+</span> <span class="bu">Debug</span><span class="op">,</span></span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true"></a><span class="op">{</span></span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">&quot;{:?}&quot;</span><span class="op">,</span> t)<span class="op">;</span></span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true"></a></span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true"></a>    <span class="kw">let</span> circle <span class="op">=</span> <span class="pp">Circle::</span>new(<span class="dv">10.0</span>)<span class="op">;</span></span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> circle<span class="op">.</span>get_perimeter())<span class="op">;</span></span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true"></a>    <span class="kw">let</span> rectangle <span class="op">=</span> <span class="pp">Rectangle::</span>new(<span class="dv">10.0</span><span class="op">,</span> <span class="dv">20.0</span>)<span class="op">;</span></span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> rectangle<span class="op">.</span>get_perimeter())<span class="op">;</span></span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true"></a>    print_area(rectangle)<span class="op">;</span></span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true"></a>    print_area(circle)<span class="op">;</span></span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="shapes-in-c">Shapes in C++</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a><span class="kw">class</span> Shape {</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>  <span class="kw">virtual</span> <span class="bu">std::</span>string getName() = <span class="dv">0</span>;</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>  <span class="kw">virtual</span> <span class="dt">double</span> getPerimeter() = <span class="dv">0</span>;</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>  <span class="kw">virtual</span> <span class="dt">double</span> getArea() = <span class="dv">0</span>;</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>  <span class="bu">std::</span>string <span class="va">name_</span> = <span class="st">&quot;Shape&quot;</span>;</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a>};</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a><span class="kw">class</span> Rectangle : <span class="kw">public</span> Shape {</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a>  Rectangle(<span class="dt">double</span> l, <span class="dt">double</span> w) : <span class="va">l_</span>(l), <span class="va">w_</span>(w) {}</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true"></a>  <span class="bu">std::</span>string getName() { <span class="cf">return</span> <span class="va">name_</span>; }</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true"></a>  <span class="dt">double</span> getPerimeter() { <span class="cf">return</span> <span class="dv">2</span> * (<span class="va">l_</span> + <span class="va">w_</span>); }</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true"></a>  <span class="dt">double</span> getArea() { <span class="cf">return</span> <span class="va">l_</span> * <span class="va">w_</span>; }</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true"></a>  <span class="bu">std::</span>string <span class="va">name_</span> = <span class="st">&quot;Rectangle&quot;</span>;</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true"></a>  <span class="dt">double</span> <span class="va">l_</span>;</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true"></a>  <span class="dt">double</span> <span class="va">w_</span>;</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true"></a>};</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true"></a><span class="kw">class</span> Circle : <span class="kw">public</span> Shape {</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true"></a>  Circle(<span class="dt">double</span> r) : <span class="va">r_</span>(r) {}</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true"></a>  <span class="bu">std::</span>string getName() { <span class="cf">return</span> <span class="va">name_</span>; }</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true"></a>  <span class="dt">double</span> getPerimeter() { <span class="cf">return</span> <span class="dv">2</span> * <span class="va">r_</span> * <span class="fl">3.14</span>; }</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true"></a>  <span class="dt">double</span> getArea() { <span class="cf">return</span> <span class="va">r_</span> * <span class="va">r_</span> * <span class="fl">3.14</span>; }</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true"></a></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true"></a>  <span class="bu">std::</span>string <span class="va">name_</span> = <span class="st">&quot;Circle&quot;</span>;</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true"></a>  <span class="dt">double</span> <span class="va">r_</span>;</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true"></a>};</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true"></a></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true"></a><span class="dt">void</span> printArea(Shape &amp;shape) { <span class="bu">std::</span>cout &lt;&lt; shape.getArea() &lt;&lt; <span class="bu">std::</span>endl; }</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true"></a></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true"></a>  Rectangle r = Rectangle(<span class="dv">10</span>, <span class="dv">20</span>);</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true"></a>  Circle c = Circle(<span class="fl">10.0</span>);</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true"></a>  printArea(c);</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true"></a>  printArea(r);</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="shapes-in-c-1">Shapes in C</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="kw">enum</span> Shape_Type { CIRCLE, RECTANGLE };</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="kw">struct</span> Shape {</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>  <span class="kw">enum</span> Shape_Type shape_type;</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>  <span class="kw">union</span> {</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>    <span class="kw">struct</span> {</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>      <span class="dt">double</span> l;</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a>      <span class="dt">double</span> w;</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a>    };</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a>    <span class="kw">struct</span> {</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a>      <span class="dt">double</span> r;</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>    };</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a>  };</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a>  <span class="dt">char</span> *(*getName)(<span class="kw">struct</span> Shape);</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true"></a>  <span class="dt">double</span> (*getArea)(<span class="kw">struct</span> Shape);</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true"></a>  <span class="dt">double</span> (*getPerimeter)(<span class="kw">struct</span> Shape);</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true"></a>};</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true"></a><span class="dt">char</span> *getName(<span class="kw">struct</span> Shape s) {</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true"></a>  <span class="cf">if</span> (s.shape_type == CIRCLE)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&quot;Circle&quot;</span>;</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true"></a>  <span class="cf">else</span> <span class="cf">if</span> (s.shape_type == RECTANGLE)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&quot;Rectangle&quot;</span>;</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true"></a>  <span class="cf">else</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&quot;Shape&quot;</span>;</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true"></a>}</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true"></a></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true"></a><span class="dt">double</span> getArea(<span class="kw">struct</span> Shape s) {</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true"></a>  <span class="cf">if</span> (s.shape_type == CIRCLE)</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true"></a>    <span class="cf">return</span> s.r * s.r * <span class="fl">3.14</span>;</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true"></a>  <span class="cf">else</span> <span class="cf">if</span> (s.shape_type == RECTANGLE)</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true"></a>    <span class="cf">return</span> (s.l + s.w) * <span class="dv">2</span>;</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true"></a>  <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true"></a>}</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true"></a></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true"></a><span class="dt">double</span> getPerimeter(<span class="kw">struct</span> Shape s) {</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true"></a>  <span class="cf">if</span> (s.shape_type == CIRCLE)</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true"></a>    <span class="cf">return</span> s.r * <span class="dv">2</span> * <span class="fl">3.14</span>;</span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true"></a>  <span class="cf">else</span> <span class="cf">if</span> (s.shape_type == RECTANGLE)</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true"></a>    <span class="cf">return</span> s.l * s.w;</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true"></a>  <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true"></a>}</span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true"></a></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true"></a><span class="kw">struct</span> Shape makeShape() {</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true"></a>  <span class="kw">struct</span> Shape s = {</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true"></a>      .getName = getName, .getArea = getArea, .getPerimeter = getPerimeter};</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true"></a>  <span class="cf">return</span> s;</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true"></a>}</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true"></a></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true"></a><span class="kw">struct</span> Shape makeCircle(<span class="dt">double</span> r) {</span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true"></a>  <span class="kw">struct</span> Shape c = makeShape();</span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true"></a>  c.shape_type = CIRCLE;</span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true"></a>  c.r = r;</span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true"></a>  <span class="cf">return</span> c;</span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true"></a>}</span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true"></a></span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true"></a><span class="kw">struct</span> Shape makeRectangle(<span class="dt">double</span> l, <span class="dt">double</span> w) {</span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true"></a>  <span class="kw">struct</span> Shape r = makeShape();</span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true"></a>  r.shape_type = RECTANGLE;</span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true"></a>  r.l = l;</span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true"></a>  r.w = w;</span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true"></a>  <span class="cf">return</span> r;</span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true"></a>}</span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true"></a></span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true"></a>  <span class="kw">struct</span> Shape c = makeCircle(<span class="dv">10</span>);</span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true"></a>  printf(<span class="st">&quot;My perimeter is: %f</span><span class="sc">\n</span><span class="st">&quot;</span>, c.getPerimeter(c));</span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true"></a>  printf(<span class="st">&quot;My area is: %f</span><span class="sc">\n</span><span class="st">&quot;</span>, c.getArea(c));</span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true"></a>  printf(<span class="st">&quot;My name is: %s</span><span class="sc">\n</span><span class="st">&quot;</span>, c.getName(c));</span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true"></a>  <span class="kw">struct</span> Shape r = makeRectangle(<span class="dv">20</span>, <span class="dv">40</span>);</span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true"></a>  printf(<span class="st">&quot;My perimeter is: %f</span><span class="sc">\n</span><span class="st">&quot;</span>, r.getPerimeter(r));</span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true"></a>  printf(<span class="st">&quot;My area is: %f</span><span class="sc">\n</span><span class="st">&quot;</span>, r.getArea(r));</span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true"></a>  printf(<span class="st">&quot;My name is: %s</span><span class="sc">\n</span><span class="st">&quot;</span>, r.getName(r));</span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="lessons-learned">Lessons Learned</h3>
+<p><a href="https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/intro/ocaml.html">OCaml at Cornell</a></p>
+<p>Genealogically, OCaml comes from the line of programming languages whose grandfather is Lisp and includes modern languages such as Clojure, F#, Haskell, and Racket. Functional languages have a surprising tendency to predict the future of more mainstream languages. Java brought garbage collection into the mainstream in 1995; Lisp had it in 1958. Java didn’t have generics until version 5 in 2004; the ML family had it in 1990.</p>
+</section>
+<section class="slide level1">
+
+<p>First-class functions and type inference have been incorporated into mainstream languages like Java, C#, and C++ over the last 10 years, long after functional languages introduced them. By studying functional programming, you get a taste of what might be coming down the pipe next. Who knows what it might be? (My bet would be pattern matching.)</p>
+</section>
+<section class="slide level1">
+
+<h4 id="apples-stock-price-since-2015">Apple’s Stock Price since 2015</h4>
+<figure>
+<img data-src="./assets/apple-stock-price-since-2015.png" alt="Apple Stock Price since 2015" /><figcaption aria-hidden="true">Apple Stock Price since 2015</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="takeways">Takeways</h3>
+<ul>
+<li>Don’t trust Apple’s marketing</li>
+<li>Swift has a pretty nice protocol system</li>
+<li>People like to take ideas from functional programming and say they did it first.</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="../_includes/reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../_includes/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../_includes/reveal.js/plugin/search/search.js"></script>
+  <script src="../_includes/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

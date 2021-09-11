@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>index</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/theme/simple.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="ui-architecture" class="title-slide slide level2">
+<h2>UI Architecture</h2>
+
+</section>
+
+<section id="feb-2021" class="title-slide slide level2">
+<h2>Feb 2021</h2>
+
+</section>
+
+<section>
+<section id="takashi-idobe" class="title-slide slide level2">
+<h2>Takashi Idobe</h2>
+
+</section>
+<section id="mvc" class="slide level3">
+<h3>MVC</h3>
+</section>
+<section id="model" class="slide level3">
+<h3>Model</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> <span class="dt">CreateCounter</span> &lt; <span class="dt">ActiveRecord</span>::<span class="dt">Migration</span>[<span class="fl">6.0</span>]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  <span class="kw">def</span> change</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    create_table <span class="st">:counter</span> <span class="kw">do</span> |t|</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>      t.integer <span class="st">:count</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="kw">end</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>  <span class="kw">end</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="kw">end</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="kw">class</span> <span class="dt">Counter</span> &lt; <span class="dt">ApplicationRecord</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="kw">end</span></span></code></pre></div>
+</section>
+<section id="controller" class="slide level3">
+<h3>Controller</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">Counter</span>::<span class="dt">Application</span>.routes.draw <span class="kw">do</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>  match <span class="st">&#39;/incr&#39;</span> =&gt; <span class="st">&#39;counter#incr&#39;</span>, <span class="st">via: :post</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>  match <span class="st">&#39;/decr&#39;</span> =&gt; <span class="st">&#39;counter#decr&#39;</span>, <span class="st">via: :post</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>  match <span class="st">&#39;/count&#39;</span> =&gt; <span class="st">&#39;counter#count&#39;</span>, via <span class="st">:get</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="kw">end</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">class</span> <span class="dt">CounterController</span> &lt; <span class="dt">ApplicationController</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>  <span class="kw">def</span> new</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="ot">@Counter</span> = <span class="dt">Counter</span>.new</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>  <span class="kw">end</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>  <span class="kw">def</span> get</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    { <span class="st">count: </span><span class="ot">@Counter</span>.count }.to_json</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>  <span class="kw">end</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>  <span class="kw">def</span> incr</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>    <span class="ot">@Counter</span>.count += <span class="dv">1</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>    { <span class="st">count: </span><span class="ot">@Counter</span>.count }.to_json</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>  <span class="kw">end</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>  <span class="kw">def</span> decr</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>    <span class="ot">@Counter</span>.count -= <span class="dv">1</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>    { <span class="st">count: </span><span class="ot">@Counter</span>.count }.to_json</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>  <span class="kw">end</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a><span class="kw">end</span></span></code></pre></div>
+</section>
+<section id="view" class="slide level3">
+<h3>View</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co"># POST /incr</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>{<span class="st">count: </span><span class="dv">1</span>}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="co"># POST /decr</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>{<span class="st">count: </span><span class="dv">0</span>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="co"># GET /count</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>{<span class="st">count: </span><span class="dv">0</span>}</span></code></pre></div>
+</section>
+<section id="react" class="slide level3">
+<h3>React</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="im">import</span> React<span class="op">,</span> { useState } <span class="im">from</span> <span class="st">&quot;react&quot;</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="kw">function</span> <span class="fu">App</span>() {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>  <span class="kw">const</span> [count<span class="op">,</span> setCount] <span class="op">=</span> <span class="fu">useState</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>  <span class="cf">return</span> (</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="kw">&lt;div&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>      <span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>() <span class="kw">=&gt;</span> <span class="fu">setCount</span>(count <span class="op">-</span> <span class="dv">1</span>)<span class="va">}</span><span class="kw">&gt;</span>-<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>      <span class="va">{</span>count<span class="va">}</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>      <span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>() <span class="kw">=&gt;</span> <span class="fu">setCount</span>(count <span class="op">+</span> <span class="dv">1</span>)<span class="va">}</span><span class="kw">&gt;</span>+<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>  )<span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<ul>
+<li>What happens if we want to update this from a child component?</li>
+<li>What happens if we don’t want to prop drill up and down?</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">function</span> <span class="fu">App</span>() {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>  <span class="cf">return</span> (</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>    <span class="kw">&lt;div&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>      <span class="fu">&lt;Counter</span> <span class="fu">/&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>      <span class="fu">&lt;CounterCopy</span> <span class="ot">count</span><span class="op">=</span><span class="va">{</span>count<span class="va">}</span><span class="fu">&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="fu">&lt;/div&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>  )</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">const</span> initialState <span class="op">=</span> { <span class="dt">count</span><span class="op">:</span> <span class="dv">0</span> }<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">function</span> <span class="fu">reducer</span>(state <span class="op">=</span> initialState<span class="op">,</span> action) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>  <span class="cf">switch</span> (action<span class="op">.</span><span class="at">type</span>) {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="cf">case</span> <span class="st">&quot;INCREMENT&quot;</span><span class="op">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>      <span class="cf">return</span> { <span class="dt">count</span><span class="op">:</span> state<span class="op">.</span><span class="at">count</span> <span class="op">+</span> <span class="dv">1</span> }<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    <span class="cf">case</span> <span class="st">&quot;DECREMENT&quot;</span><span class="op">:</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>      <span class="cf">return</span> { <span class="dt">count</span><span class="op">:</span> state<span class="op">.</span><span class="at">count</span> <span class="op">-</span> <span class="dv">1</span> }<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>    <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>      <span class="cf">return</span> state<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>  }</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">function</span> <span class="fu">Counter</span>({count<span class="op">,</span> dispatch}) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>  increment <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="fu">dispatch</span>({ <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;INCREMENT&quot;</span> })<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>  decrement <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="fu">dispatch</span>({ <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;DECREMENT&quot;</span> })<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>  <span class="cf">return</span> (</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>    <span class="kw">&lt;div&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>      <span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>decrement<span class="va">}</span><span class="kw">&gt;</span>-<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>      <span class="va">{</span>count<span class="va">}</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>      <span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>increment<span class="va">}</span><span class="kw">&gt;</span>+<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>  )<span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>}</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a><span class="kw">const</span> mapStateToProps <span class="op">=</span> (state) <span class="kw">=&gt;</span> ({</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>  <span class="dt">count</span><span class="op">:</span> state<span class="op">.</span><span class="at">count</span><span class="op">;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>})<span class="op">;</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a><span class="im">export</span> <span class="im">default</span> <span class="fu">connect</span>(mapStateToProps)(Counter)<span class="op">;</span></span></code></pre></div>
+</section>
+<section id="counter-copy" class="slide level3">
+<h3>Counter Copy</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">function</span> <span class="fu">CounterCopy</span>({ count }) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>  <span class="cf">return </span><span class="kw">&lt;div&gt;</span>Copy: <span class="va">{</span>count<span class="va">}</span><span class="kw">&lt;/div&gt;</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section id="the-elm-architecture" class="slide level3">
+<h3>The Elm Architecture</h3>
+<ul>
+<li><strong>Model</strong> the state of your application</li>
+<li><strong>View</strong> The HTML on your page</li>
+<li><strong>Update</strong> a way to update your state with messages</li>
+</ul>
+<p>Let’s build a counter in elm.</p>
+</section>
+<section id="main" class="slide level3">
+<h3>Main</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Browser</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Html</span> <span class="kw">exposing</span> (<span class="dt">Html</span><span class="op">,</span> <span class="fu">button</span><span class="op">,</span> <span class="fu">div</span><span class="op">,</span> <span class="fu">text</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Html</span><span class="op">.</span><span class="dt">Events</span> <span class="kw">exposing</span> (<span class="fu">onClick</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="co">-- MAIN</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="fu">main</span> : <span class="dt">Program</span> <span class="dt">Value</span> <span class="dt">Model</span> <span class="dt">Msg</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="fu">main</span> <span class="op">=</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>    <span class="dt">Browser</span><span class="op">.</span><span class="fu">application</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>        {</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>          <span class="fu">init</span> <span class="op">=</span> <span class="fu">init</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>        <span class="op">,</span> <span class="fu">view</span> <span class="op">=</span> <span class="fu">view</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>        <span class="op">,</span> <span class="fu">update</span> <span class="op">=</span> <span class="fu">update</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a>        }</span></code></pre></div>
+</section>
+<section id="model-1" class="slide level3">
+<h3>Model</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="co">-- MODEL</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="kw">type</span> <span class="kw">alias</span> <span class="dt">Model</span> <span class="op">=</span> <span class="dt">Int</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="fu">init</span> : <span class="dt">Model</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="fu">init</span> <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+</section>
+<section id="update" class="slide level3">
+<h3>Update</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="co">-- UPDATE</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span class="kw">type</span> <span class="dt">Msg</span> <span class="op">=</span> <span class="dt">Increment</span> <span class="op">|</span> <span class="dt">Decrement</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a><span class="fu">update</span> : <span class="dt">Msg</span> <span class="op">-&gt;</span> <span class="dt">Model</span> <span class="op">-&gt;</span> <span class="dt">Model</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a><span class="fu">update</span> <span class="fu">msg</span> <span class="fu">model</span> <span class="op">=</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    <span class="cf">case</span> <span class="fu">msg</span> <span class="cf">of</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>        <span class="dt">Increment</span> <span class="op">-&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>            <span class="fu">model</span> <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>        <span class="dt">Decrement</span> <span class="op">-&gt;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>            <span class="fu">model</span> <span class="op">-</span> <span class="dv">1</span></span></code></pre></div>
+</section>
+<section id="view-1" class="slide level3">
+<h3>View</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="co">-- VIEW</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="fu">view</span> : <span class="dt">Model</span> <span class="op">-&gt;</span> <span class="dt">Html</span> <span class="dt">Msg</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="fu">view</span> <span class="fu">model</span> <span class="op">=</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>    <span class="fu">div</span> []</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>        [ <span class="fu">button</span> [ <span class="fu">onClick</span> <span class="dt">Decrement</span> ] [ <span class="fu">text</span> <span class="st">&quot;-&quot;</span> ]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>        <span class="op">,</span> <span class="fu">div</span> [] [ <span class="fu">text</span> (<span class="dt">String</span><span class="op">.</span><span class="fu">fromInt</span> <span class="fu">model</span>) ]</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>        <span class="op">,</span> <span class="fu">button</span> [ <span class="fu">onClick</span> <span class="dt">Increment</span> ] [ <span class="fu">text</span> <span class="st">&quot;+&quot;</span> ]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>        ]</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<p><a href="https://elm-lang.org/examples/buttons">Example</a></p>
+</section>
+<section id="nice-features-of-elm" class="slide level3">
+<h3>Nice features of Elm</h3>
+<ul>
+<li>Type Aliases</li>
+<li>Pattern Matching</li>
+<li>Maybe</li>
+<li>Result</li>
+<li>Error Handling</li>
+</ul>
+</section>
+<section id="structural-typing" class="slide level3">
+<h3>Structural Typing</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">type</span> <span class="kw">alias</span> <span class="dt">User</span> <span class="op">=</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    { <span class="fu">name</span> : <span class="dt">String</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    <span class="op">,</span> <span class="fu">age</span> : <span class="dt">Int</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="fu">isOldEnoughToVote</span> : <span class="dt">User</span> <span class="op">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="fu">isOldEnoughToVote</span> <span class="fu">user</span> <span class="op">=</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>  <span class="fu">user</span><span class="op">.</span><span class="fu">age</span> <span class="op">&gt;=</span> <span class="dv">18</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="fu">isOldEnoughToVote</span> : { <span class="fu">name</span> : <span class="dt">String</span><span class="op">,</span> <span class="fu">age</span> : <span class="dt">Int</span> } <span class="op">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a><span class="fu">isOldEnoughToVote</span> <span class="fu">user</span> <span class="op">=</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>  <span class="fu">user</span><span class="op">.</span><span class="fu">age</span> <span class="op">&gt;=</span> <span class="dv">18</span></span></code></pre></div>
+</section>
+<section id="enums" class="slide level3">
+<h3>Enums</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">type</span> <span class="dt">UserStatus</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>  <span class="op">=</span> <span class="dt">Regular</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>  <span class="op">|</span> <span class="dt">Visitor</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a><span class="kw">type</span> <span class="kw">alias</span> <span class="dt">User</span> <span class="op">=</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>  { <span class="fu">status</span> : <span class="dt">UserStatus</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>  <span class="op">,</span> <span class="fu">name</span> : <span class="dt">String</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>  }</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a><span class="fu">thomas</span> <span class="op">=</span> { <span class="fu">status</span> <span class="op">=</span> <span class="dt">Regular</span><span class="op">,</span> <span class="fu">name</span> <span class="op">=</span> <span class="st">&quot;Thomas&quot;</span> }</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a><span class="fu">kate95</span> <span class="op">=</span> { <span class="fu">status</span> <span class="op">=</span> <span class="dt">Visitor</span><span class="op">,</span> <span class="fu">name</span> <span class="op">=</span> <span class="st">&quot;kate95&quot;</span> }</span></code></pre></div>
+</section>
+<section id="pattern-matching" class="slide level3">
+<h3>Pattern Matching</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="fu">greetUser</span> : <span class="dt">User</span> <span class="op">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="fu">greetUser</span> <span class="fu">user</span> <span class="op">=</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>    <span class="cf">case</span> <span class="fu">user</span><span class="op">.</span><span class="fu">status</span> <span class="cf">of</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>        <span class="dt">Regular</span> <span class="op">-&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>            <span class="st">&quot;Hi Regular &quot;</span> <span class="op">++</span> <span class="fu">user</span><span class="op">.</span><span class="fu">name</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>        <span class="dt">Visitor</span> <span class="op">-&gt;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>            <span class="st">&quot;Hi Visitor &quot;</span> <span class="op">++</span> <span class="fu">user</span><span class="op">.</span><span class="fu">name</span></span></code></pre></div>
+</section>
+<section id="enums-1" class="slide level3">
+<h3>Enums</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="kw">type</span> <span class="dt">User</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>  <span class="op">=</span> <span class="dt">Regular</span> <span class="dt">String</span> <span class="dt">String</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>  <span class="op">|</span> <span class="dt">Visitor</span> <span class="dt">String</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a><span class="fu">thomas</span> <span class="op">=</span> <span class="dt">Regular</span> <span class="st">&quot;Thomas&quot;</span> <span class="st">&quot;Kahlua&quot;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a><span class="fu">kate95</span> <span class="op">=</span> <span class="dt">Visitor</span> <span class="st">&quot;kate95&quot;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a><span class="fu">greetUser</span> : <span class="dt">User</span> <span class="op">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a><span class="fu">greetUser</span> <span class="fu">user</span> <span class="op">=</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>    <span class="cf">case</span> <span class="fu">user</span> <span class="cf">of</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>        <span class="dt">Regular</span> <span class="fu">name</span> <span class="fu">drink</span> <span class="op">-&gt;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a>            <span class="st">&quot;Hi Regular &quot;</span> <span class="op">++</span> <span class="fu">name</span> <span class="op">++</span> <span class="st">&quot;Who&#39;s favorite drink is: &quot;</span> <span class="op">++</span> <span class="fu">drink</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a>        <span class="dt">Visitor</span> <span class="fu">name</span> <span class="op">-&gt;</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a>            <span class="st">&quot;Hi Visitor &quot;</span> <span class="op">++</span> <span class="fu">name</span> <span class="op">++</span> <span class="st">&quot;What would you like to order?&quot;</span></span></code></pre></div>
+</section>
+<section id="maybe" class="slide level3">
+<h3>Maybe</h3>
+<ul>
+<li>When you’re not sure an operation will succeed.</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="kw">type</span> <span class="dt">Maybe</span> <span class="fu">a</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>  <span class="op">=</span> <span class="dt">Just</span> <span class="fu">a</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>  <span class="op">|</span> <span class="dt">Nothing</span></span></code></pre></div>
+</section>
+<section id="in-use" class="slide level3">
+<h3>In use</h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="op">&gt;</span> <span class="dt">String</span><span class="op">.</span><span class="fu">toInt</span> <span class="st">&quot;3&quot;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="dt">Just</span> <span class="dv">3</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a><span class="op">&gt;</span> <span class="dt">String</span><span class="op">.</span><span class="fu">toInt</span> <span class="st">&quot;3.14&quot;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a><span class="dt">Nothing</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a><span class="op">&gt;</span> <span class="dt">String</span><span class="op">.</span><span class="fu">toInt</span> <span class="st">&quot;abc&quot;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a><span class="dt">Nothing</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a><span class="op">&gt;</span> <span class="dt">String</span><span class="op">.</span><span class="fu">toInt</span> <span class="dt">Nothing</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a><span class="co">-- Compiler Error</span></span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<p>In ruby?</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>&gt; <span class="st">&quot;3&quot;</span>.to_i</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>=&gt; <span class="dv">3</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>&gt; <span class="st">&quot;3.14&quot;</span>.to_i</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>=&gt; <span class="dv">3</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a>&gt; <span class="st">&quot;abc&quot;</span>.to_i</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a>=&gt; <span class="dv">0</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a>&gt; <span class="dv">nil</span>.to_i</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a>=&gt; <span class="dv">0</span></span></code></pre></div>
+</section>
+<section id="results" class="slide level3">
+<h3>Results</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="fu">isReasonableAge</span> : <span class="dt">String</span> <span class="op">-&gt;</span> <span class="dt">Result</span> <span class="dt">String</span> <span class="dt">Int</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="fu">isReasonableAge</span> <span class="fu">input</span> <span class="op">=</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a>  <span class="cf">case</span> <span class="dt">String</span><span class="op">.</span><span class="fu">toInt</span> <span class="fu">input</span> <span class="cf">of</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a>    <span class="dt">Nothing</span> <span class="op">-&gt;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true"></a>      <span class="dt">Err</span> <span class="st">&quot;That is not a number!&quot;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true"></a>    <span class="dt">Just</span> <span class="fu">age</span> <span class="op">-&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true"></a>      <span class="cf">if</span> <span class="fu">age</span> <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">then</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true"></a>        <span class="dt">Err</span> <span class="st">&quot;Please try again after you are born.&quot;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true"></a>      <span class="cf">else</span> <span class="cf">if</span> <span class="fu">age</span> <span class="op">&gt;</span> <span class="dv">135</span> <span class="cf">then</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true"></a>        <span class="dt">Err</span> <span class="st">&quot;Are you some kind of turtle?&quot;</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true"></a>      <span class="cf">else</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true"></a>        <span class="dt">Ok</span> <span class="fu">age</span></span></code></pre></div>
+</section>
+<section id="http-requests" class="slide level3">
+<h3>HTTP Requests</h3>
+<p>JSLand</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="fu">fetch</span>(url)<span class="op">.</span><span class="fu">then</span>(res <span class="kw">=&gt;</span> res<span class="op">.</span><span class="fu">json</span>())<span class="op">.</span><span class="fu">then</span>(res <span class="kw">=&gt;</span> <span class="co">/* do something */</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a><span class="co">// I forgot to add a .catch(), so this program could error out at any time.</span></span></code></pre></div>
+</section>
+<section id="in-elm" class="slide level3">
+<h3>in Elm</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="co">-- Main</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a><span class="fu">main</span> <span class="op">=</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a>  <span class="dt">Browser</span><span class="op">.</span><span class="fu">element</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a>    { <span class="fu">init</span> <span class="op">=</span> <span class="fu">init</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a>    <span class="op">,</span> <span class="fu">update</span> <span class="op">=</span> <span class="fu">update</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a>    <span class="op">,</span> <span class="fu">view</span> <span class="op">=</span> <span class="fu">view</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a>    }</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb24"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="co">-- Model</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="kw">type</span> <span class="dt">Model</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a>  <span class="op">=</span> <span class="dt">Failure</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a>  <span class="op">|</span> <span class="dt">Loading</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a>  <span class="op">|</span> <span class="dt">Success</span> <span class="dt">String</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a><span class="fu">init</span> : () <span class="op">-&gt;</span> (<span class="dt">Model</span><span class="op">,</span> <span class="dt">Cmd</span> <span class="dt">Msg</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a><span class="fu">init</span> <span class="fu">_</span> <span class="op">=</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a>  ( <span class="dt">Loading</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true"></a>  <span class="op">,</span> <span class="dt">Http</span><span class="op">.</span><span class="fu">get</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true"></a>      { <span class="fu">url</span> <span class="op">=</span> <span class="st">&quot;https://elm-lang.org/assets/public-opinion.txt&quot;</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true"></a>      <span class="op">,</span> <span class="fu">expect</span> <span class="op">=</span> <span class="dt">Http</span><span class="op">.</span><span class="fu">expectString</span> <span class="dt">GotText</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true"></a>      }</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true"></a>  )</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb25"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="co">-- UPDATE</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a><span class="kw">type</span> <span class="dt">Msg</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a>  <span class="op">=</span> <span class="dt">GotText</span> (<span class="dt">Result</span> <span class="dt">Http</span><span class="op">.</span><span class="dt">Error</span> <span class="dt">String</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true"></a><span class="fu">update</span> : <span class="dt">Msg</span> <span class="op">-&gt;</span> <span class="dt">Model</span> <span class="op">-&gt;</span> (<span class="dt">Model</span><span class="op">,</span> <span class="dt">Cmd</span> <span class="dt">Msg</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true"></a><span class="fu">update</span> <span class="fu">msg</span> <span class="fu">model</span> <span class="op">=</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true"></a>  <span class="cf">case</span> <span class="fu">msg</span> <span class="cf">of</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true"></a>    <span class="dt">GotText</span> <span class="fu">result</span> <span class="op">-&gt;</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true"></a>      <span class="cf">case</span> <span class="fu">result</span> <span class="cf">of</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true"></a>        <span class="dt">Ok</span> <span class="fu">fullText</span> <span class="op">-&gt;</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true"></a>          (<span class="dt">Success</span> <span class="fu">fullText</span><span class="op">,</span> <span class="dt">Cmd</span><span class="op">.</span><span class="fu">none</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true"></a>        <span class="dt">Err</span> <span class="fu">_</span> <span class="op">-&gt;</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true"></a>          (<span class="dt">Failure</span><span class="op">,</span> <span class="dt">Cmd</span><span class="op">.</span><span class="fu">none</span>)</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb26"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="co">-- VIEW</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a><span class="fu">view</span> : <span class="dt">Model</span> <span class="op">-&gt;</span> <span class="dt">Html</span> <span class="dt">Msg</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a><span class="fu">view</span> <span class="fu">model</span> <span class="op">=</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a>  <span class="cf">case</span> <span class="fu">model</span> <span class="cf">of</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>    <span class="dt">Failure</span> <span class="op">-&gt;</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>      <span class="fu">text</span> <span class="st">&quot;I was unable to load your book.&quot;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>    <span class="dt">Loading</span> <span class="op">-&gt;</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>      <span class="fu">text</span> <span class="st">&quot;Loading...&quot;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a>    <span class="dt">Success</span> <span class="fu">fullText</span> <span class="op">-&gt;</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a>      <span class="fu">pre</span> [] [ <span class="fu">text</span> <span class="fu">fullText</span> ]</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<p>A breath of fresh air. All states are taken care of by the compiler.</p>
+</section>
+<section id="the-most-famous-ruby-programmer" class="slide level3">
+<h3>The Most Famous Ruby Programmer</h3>
+<figure>
+<img data-src="./assets/why-the-lucky-stiff-foxes.png" alt="Foxes" /><figcaption aria-hidden="true">Foxes</figcaption>
+</figure>
+</section>
+<section id="why-the-lucky-stiff-on-null" class="slide level3">
+<h3>Why the Lucky Stiff on NULL</h3>
+<p>(To me, fighting NULL is the epitome of why I struggled as a programmer. I am not a natural at it, but I wanted very much to be–and I found no use for NULL. I never needed it, but it was always there. I kept pushing it down, painting over it, shutting it up, constantly checking for it–</p>
+<p>“Are you NULL?</p>
+<p>Are you NULL?</p>
+<p>What about you?”</p>
+</section>
+<section id="cont." class="slide level3">
+<h3>Cont.</h3>
+<p>–and sometimes I would deceive myself, that my problems were other things, but then NULL would pop up, I would find that it was the cause–however, NULL is never really the cause. It is someone you always run into in bad situations, someone you never want to see. NULL penetrates all the layers to find you, and can only say, helplessly, “Looks like you’re having a problem.” Endemic to the problem, not the problem, complicit, and might be the problem.)</p>
+</section>
+<section id="takeaways" class="slide level3">
+<h3>Takeaways</h3>
+<ul>
+<li>More compile time errors is good.</li>
+<li>Exceptions and nils and runtime errors are hard to track down.</li>
+<li>Functional Programming is intuitive.</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="../_includes/reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../_includes/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../_includes/reveal.js/plugin/search/search.js"></script>
+  <script src="../_includes/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

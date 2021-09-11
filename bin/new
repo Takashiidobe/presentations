@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euf -o pipefail
+
+cp -r template presentations/$1

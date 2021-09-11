@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>index</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/theme/simple.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="memory-allocators" class="slide level2">
+<h2>Memory Allocators</h2>
+</section>
+<section id="feb-2021" class="slide level2">
+<h2>Feb 2021</h2>
+</section>
+<section id="takashi-idobe" class="slide level2">
+<h2>Takashi Idobe</h2>
+</section>
+<section id="why-malloc" class="slide level2">
+<h2>Why Malloc?</h2>
+<ul>
+<li>Sometimes we want to have dynamic memory</li>
+<li>We use <code>malloc</code> and <code>free</code>.</li>
+<li>Malloc has to cover a wide variety of use cases
+<ul>
+<li>It’s not really good at any one thing.</li>
+</ul></li>
+<li>It can be slow, because sometimes it needs to <code>sbrk</code>, and that takes a long time.</li>
+</ul>
+<p>Let’s build our own memory allocator.</p>
+</section>
+<section id="linear-allocator" class="slide level2">
+<h2>Linear Allocator</h2>
+<ul>
+<li>Allocate a big chunk of memory</li>
+<li>Have a pointer to the beginning of the chunk.</li>
+<li>When you need some memory, move the pointer to the end of the point.</li>
+<li>Done!</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><img src="./assets/linear-allocator.png" style="background-color:white;" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="pros">Pros</h3>
+<ul>
+<li>This is as fast as possible.</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>No <code>free</code>.</li>
+<li>You have to free the whole thing at once.</li>
+</ul>
+<p>Wouldn’t it be nice to be able to <code>free</code>?</p>
+</section>
+<section id="stack-allocator" class="slide level2">
+<h2>Stack Allocator</h2>
+<ul>
+<li>Allocate a big chunk of memory</li>
+<li>Have a pointer to the beginning</li>
+<li>When you need some memory, allocate a small header + memory.</li>
+<li>The header tells us the size of the chunk.</li>
+<li>When freeing, read the header size, free memory, and move backwards that size.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><img src="./assets/stack-allocator.png" style="background-color:white;" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="pros-1">Pros</h3>
+<ul>
+<li>Still fast</li>
+</ul>
+<h3 id="cons-1">Cons</h3>
+<ul>
+<li>We can free the last chunk (pop the stack).</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="pool-allocator">Pool Allocator</h3>
+<ul>
+<li>Allocate a chunk of memory</li>
+<li>Split big memory into smaller chunks of the same size</li>
+<li>When allocating, give a random chunk.</li>
+<li>When freeing, return chunk to pool.</li>
+<li>We store a linked list inside the pool to tell us where the next allocation is.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section>
+    </div>
+  </div>
+
+  <script src="../_includes/reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../_includes/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../_includes/reveal.js/plugin/search/search.js"></script>
+  <script src="../_includes/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

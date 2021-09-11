@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>index</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/theme/simple.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+<section id="ownership-and-borrowing-in-rust" class="title-slide slide level2">
+<h2>Ownership and Borrowing in Rust</h2>
+
+</section>
+<section id="nov-2019" class="slide level3">
+<h3>Nov 2019</h3>
+</section>
+<section id="takashi-idobe" class="slide level3">
+<h3>Takashi Idobe</h3>
+</section>
+<section id="why-learn-another-language" class="slide level3">
+<h3>Why Learn another language?</h3>
+<ul>
+<li>Not all languages stay popular forever <!-- .element: class="fragment" --></li>
+<li>There may be interesting work in other languages <!-- .element: class="fragment" --></li>
+<li>You can apply the patterns of another language to your current language <!-- .element: class="fragment" --></li>
+</ul>
+</section>
+<section id="why-rust" class="slide level3">
+<h3>Why Rust?</h3>
+<ul>
+<li>Memory safe</li>
+<li>Fast</li>
+<li>Correctness as a feature</li>
+<li>Statically Linked Binaries</li>
+<li>Strong type system</li>
+<li>Functional programming</li>
+<li>Fearless Concurrency</li>
+<li><strong>Unique ownership system</strong></li>
+</ul>
+</section>
+<section id="memory-safety" class="slide level3">
+<h3>Memory Safety</h3>
+<ul>
+<li>Does this compile?</li>
+<li>what does it print?</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  vector&lt;tuple&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt;&gt; vec = {{<span class="dv">5</span>, <span class="dv">10</span>}};</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>  <span class="at">const</span> <span class="kw">auto</span> &amp;first_elem = vec.front();</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10</span>; ++i) vec.push_back(first_elem);</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span> [x, y]: vec) cout &lt;&lt; x &lt;&lt; <span class="ch">&#39; &#39;</span> &lt;&lt;  y &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section id="memory-safety-cont." class="slide level3">
+<h3>Memory Safety Cont.</h3>
+<p>It does, rather confusingly:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="ex">5</span> 10</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="ex">5</span> 10</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="ex">0</span> 0</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="ex">0</span> 0</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="ex">0</span> 0</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="ex">0</span> 0</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="ex">0</span> 0</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="ex">0</span> 0</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="ex">0</span> 0</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="ex">0</span> 0</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="ex">0</span> 0</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<p><img data-src="assets/mocha-fire.gif" /></p>
+</section>
+<section id="iterator-invalidation" class="slide level3">
+<h3>Iterator Invalidation</h3>
+<ul>
+<li>Does this compile?</li>
+<li>what does it print?</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>  vector&lt;string&gt; strings = {<span class="st">&quot;Hi&quot;</span>};</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  <span class="at">const</span> <span class="kw">auto</span>&amp; elem = strings[<span class="dv">0</span>];</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>  strings.push_back(<span class="st">&quot;World&quot;</span>);</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>  cout &lt;&lt; elem &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section id="iterator-invalidation-cont." class="slide level3">
+<h3>Iterator Invalidation Cont.</h3>
+<ul>
+<li>This is undefined behavior. It could print nothing or segfault or uninitialized memory.</li>
+</ul>
+<p><img data-src="assets/milk-angry.gif" /></p>
+<p>Let’s try this in rust.</p>
+<!-- .element: class="fragment" -->
+</section>
+<section id="rust-memory-safety" class="slide level3">
+<h3>Rust Memory Safety</h3>
+<ul>
+<li>Does this compile?</li>
+<li>If so, what does it print?</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> vec <span class="op">=</span> <span class="pp">vec!</span>[(<span class="dv">5</span><span class="op">,</span> <span class="dv">10</span>)]<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>  <span class="kw">let</span> first_elem <span class="op">=</span> <span class="op">&amp;</span>vec[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>  <span class="kw">for</span> _ <span class="kw">in</span> <span class="dv">1</span><span class="op">..</span><span class="dv">10</span> <span class="op">{</span> vec<span class="op">.</span>push(<span class="op">*</span>first_elem)<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>  <span class="kw">for</span> p <span class="kw">in</span> vec <span class="op">{</span> <span class="pp">println!</span>(<span class="st">&quot;{}, {}&quot;</span><span class="op">,</span> p<span class="op">.</span><span class="dv">0</span><span class="op">,</span> p<span class="op">.</span><span class="dv">1</span>)<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="ex">error</span>[E0502]: cannot borrow <span class="kw">`</span><span class="ex">vec</span><span class="kw">`</span> as mutable because</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="ex">it</span> is also borrowed as immutable</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:4:22</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>  <span class="kw">|</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="ex">3</span> <span class="kw">|</span>     <span class="bu">let</span> first_elem = <span class="kw">&amp;</span><span class="ex">vec</span>[0]<span class="kw">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>  <span class="kw">|</span>                       <span class="ex">---</span> immutable borrow occurs here</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="ex">4</span> <span class="kw">|</span>     <span class="kw">for</span> <span class="ex">_</span> in 1..10 { vec.push(*first_elem); }</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>  <span class="kw">|</span>                      ^^^^^^^^^<span class="ex">-----------</span>^</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="kw">|</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="ex">immutable</span> borrow</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="ex">later</span> used here</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>  <span class="kw">|</span>                      <span class="ex">mutable</span> borrow occurs here</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a><span class="ex">error</span>: aborting due to previous error</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<p><img data-src="assets/mocha-kick.gif" /></p>
+</section>
+<section id="strings" class="slide level3">
+<h3>Strings</h3>
+<ul>
+<li>Does this compile?</li>
+<li>If so, what does it print?</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> vec <span class="op">=</span> <span class="pp">vec!</span>[<span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;Hi&quot;</span>)]<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>  <span class="kw">let</span> first_elem <span class="op">=</span> <span class="op">&amp;</span>vec[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>  vec<span class="op">.</span>push(first_elem<span class="op">.</span>to_string())<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>  <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> first_elem)<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="ex">error</span>[E0502]: cannot borrow <span class="kw">`</span><span class="ex">vec</span><span class="kw">`</span> as mutable because</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="ex">it</span> is also borrowed as immutable</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:4:5</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>  <span class="kw">|</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="ex">3</span> <span class="kw">|</span>     <span class="bu">let</span> first_elem = <span class="kw">&amp;</span><span class="ex">vec</span>[0]<span class="kw">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>  <span class="kw">|</span>                       <span class="ex">---</span> immutable borrow occurs here</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="ex">4</span> <span class="kw">|</span>     <span class="ex">vec.push</span>(first_elem.to_string());</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>  <span class="kw">|</span>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ <span class="ex">mutable</span> borrow occurs here</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="ex">5</span> <span class="kw">|</span>     <span class="ex">println</span>!(<span class="st">&quot;{}&quot;</span>, first_elem);</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>  <span class="kw">|</span>                    <span class="ex">----------</span> immutable borrow later used here</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<p><img data-src="assets/mocha-kick.gif" /></p>
+</section>
+<section id="ownership-rules" class="slide level3">
+<h3>Ownership Rules</h3>
+<ul>
+<li>You can give away as many copies as you want to. <!-- .element: class="fragment" --></li>
+<li>You are allowed to have as many immutable references as you want <!-- .element: class="fragment" --> <strong>or</strong> <!-- .element: class="fragment" --></li>
+<li>You can loan out one mutable reference. <!-- .element: class="fragment" --></li>
+</ul>
+</section>
+<section id="define-ownership" class="slide level3">
+<h3>Define Ownership</h3>
+<ul>
+<li>A copy gives ownership of a copy to someone.
+<ul>
+<li>I give you a copy of my book</li>
+</ul></li>
+<li>A move gives ownership to someone.
+<ul>
+<li>I give you my book</li>
+</ul></li>
+<li>A reference shares ownership of code with someone.
+<ul>
+<li>We share the book</li>
+</ul></li>
+</ul>
+</section>
+<section id="is-this-program-ok" class="slide level3">
+<h3>Is this program ok?</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="dt">void</span> print_arr(<span class="at">const</span> vector&lt;<span class="dt">int</span>&gt; &amp;vec);</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>  print_arr({<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>});</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section id="does-it-look-fine-now" class="slide level3">
+<h3>Does it look fine now?</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="dt">void</span> print_arr(<span class="at">const</span> vector&lt;<span class="dt">int</span>&gt; &amp;vec) {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span> elem: vec) cout &lt;&lt; elem &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>  <span class="kw">delete</span> &amp;vec;</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>}</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>  print_arr({<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>});</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section id="types-cant-save-us" class="slide level3">
+<h3>Types can’t save us</h3>
+<ul>
+<li>We have a problem where we try to delete a vector through a reference. This compiles.</li>
+<li>Our program crashes immediately.</li>
+</ul>
+</section>
+<section id="in-rust" class="slide level3">
+<h3>In Rust</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">fn</span> print_vec(vec<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span>) <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>  <span class="kw">for</span> item <span class="kw">in</span> vec <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> item)<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>  drop(<span class="op">*</span>vec)<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>  print_vec(<span class="op">&amp;</span><span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span>])<span class="op">;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="ex">error</span>[E0507]: cannot move out of <span class="kw">`</span><span class="ex">*vec</span><span class="kw">`</span> which is behind</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="ex">a</span> shared reference</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:5:10</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>  <span class="kw">|</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a><span class="ex">5</span> <span class="kw">|</span>     <span class="ex">drop</span>(*vec);</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>  <span class="kw">|</span>          ^^^^ <span class="ex">move</span> occurs because <span class="kw">`</span><span class="ex">*vec</span><span class="kw">`</span> has type</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>  <span class="kw">|</span>               <span class="kw">`</span><span class="ex">std</span>::vec::Vec<span class="op">&lt;</span>i32<span class="op">&gt;</span><span class="kw">`</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>  <span class="kw">|</span>               <span class="fu">which</span> does not implement the <span class="kw">`</span><span class="ex">Copy</span><span class="kw">`</span> trait</span></code></pre></div>
+</section>
+<section id="fearless-concurrency" class="slide level3">
+<h3>Fearless Concurrency</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>vector&lt;<span class="dt">int</span>&gt; nums;</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="dt">void</span> writeToNums() {</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">3</span>; i++)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>  nums.push_back(i);</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>}</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>  vector&lt;thread&gt; threads;</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">20</span>; i++) threads.emplace_back(writeToNums);</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="kw">auto</span>&amp; th: threads) th.join();</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="kw">auto</span> item: nums) cout &lt;&lt; item &lt;&lt; <span class="ch">&#39; &#39;</span>;</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a>}</span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<p>Undefined behavior again.</p>
+</section>
+<section id="in-rust-1" class="slide level3">
+<h3>In Rust</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>thread<span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="kw">fn</span> write_to_nums(nums<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span>) <span class="op">{</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>  <span class="kw">for</span> i <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span><span class="dv">3</span> <span class="op">{</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    nums<span class="op">.</span>push(i)<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> nums <span class="op">=</span> <span class="pp">vec!</span>[]<span class="op">;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> threads <span class="op">=</span> <span class="pp">vec!</span>[]<span class="op">;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a>  <span class="kw">for</span> _ <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span><span class="dv">20</span> <span class="op">{</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>    threads<span class="op">.</span>push(<span class="pp">thread::</span>spawn(<span class="kw">move</span> <span class="op">||</span> <span class="op">{</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a>      write_to_nums(<span class="op">&amp;</span><span class="kw">mut</span> nums)<span class="op">;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a>    <span class="op">}</span>))<span class="op">;</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true"></a>  <span class="kw">for</span> thread <span class="kw">in</span> threads <span class="op">{</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true"></a>    <span class="kw">let</span> _ <span class="op">=</span> thread<span class="op">.</span>join()<span class="op">;</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true"></a>  <span class="kw">for</span> num <span class="kw">in</span> nums <span class="op">{</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> num)<span class="op">;</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section class="slide level3">
+
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="ex">error</span>[E0382]: use of moved value: <span class="kw">`</span><span class="ex">nums</span><span class="kw">`</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>  <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:13:32</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>   <span class="kw">|</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="ex">9</span>  <span class="kw">|</span>   <span class="bu">let</span> mut nums = vec![]<span class="kw">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>   <span class="kw">|</span>       <span class="ex">--------</span> move occurs because <span class="kw">`</span><span class="ex">nums</span><span class="kw">`</span> has type</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>   <span class="kw">|</span>       <span class="ex">--------</span> <span class="kw">`</span><span class="ex">std</span>::vec::Vec<span class="op">&lt;</span>i32<span class="op">&gt;</span><span class="kw">`</span>, which does</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>   <span class="kw">|</span>       <span class="ex">--------</span> not implement the <span class="kw">`</span><span class="ex">Copy</span><span class="kw">`</span> trait</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a><span class="ex">...</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a><span class="ex">13</span> <span class="kw">|</span>     <span class="ex">threads.push</span>(thread::spawn(move <span class="kw">||</span> <span class="kw">{</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>   <span class="kw">|</span>                                ^^^^^^^ <span class="ex">value</span> moved into</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>   <span class="kw">|</span>             <span class="ex">closure</span> here, in previous iteration of loop</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a><span class="ex">14</span> <span class="kw">|</span>       <span class="ex">write_to_nums</span>(<span class="kw">&amp;</span><span class="ex">mut</span> nums);</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a>   <span class="kw">|</span>                          ^^ <span class="ex">use</span> occurs due to use in closure</span></code></pre></div>
+</section>
+<section id="the-borrow-checker-at-first" class="slide level3">
+<h3>The Borrow Checker at first</h3>
+<p><img data-src="assets/milk-pulling-mocha.gif" /></p>
+</section>
+<section id="the-borrow-checker-by-the-end" class="slide level3">
+<h3>The Borrow Checker by the end</h3>
+<p><img data-src="assets/milk-mocha-hug.gif" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="../_includes/reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../_includes/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../_includes/reveal.js/plugin/search/search.js"></script>
+  <script src="../_includes/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

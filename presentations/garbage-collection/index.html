@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>index</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../_includes/reveal.js/dist/theme/simple.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="garbage-collection" class="slide level1">
+<h1>Garbage Collection</h1>
+<p>Feb 2021</p>
+<p>Takashi Idobe</p>
+</section>
+<section class="slide level1">
+
+<ul>
+<li>Imagine you have your own room, and you have to take out the trash every once in a while.</li>
+<li>That’s basically garbage collection.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="strategies">Strategies</h2>
+<ul>
+<li>No GC</li>
+<li>Reference Counting</li>
+<li>Mark-Sweep</li>
+<li>Multi-Space</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="no-gc">No GC</h2>
+<ul>
+<li>We allocate a chunk of memory up front, and when we use it all up, we crash.</li>
+<li>At the end, we throw everything away.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="visualization">Visualization</h2>
+<ul>
+<li>Black = Memory not in use</li>
+<li>Green + Yellow = Memory in Use</li>
+<li>Gray = Memory not in use for long time.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><img src="./assets/NO_GC.gif" width="800px" height="600px" /></p>
+</section>
+<section class="slide level1">
+
+<h3 id="usage">Usage</h3>
+<ul>
+<li>High Frequency Traders do this a lot.</li>
+</ul>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Fast and Simple</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li>We can’t free anything.</li>
+<li>Memory Fragmentation.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="reference-counting">Reference Counting</h2>
+<ul>
+<li>Keep track of how many times you’re using a resource.</li>
+<li>When it drops to 0, free it.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><img src="./assets/REF_COUNT_GC.gif" width="800px" height="600px" /></p>
+</section>
+<section class="slide level1">
+
+<h3 id="usage-1">Usage</h3>
+<ul>
+<li>Obj-C, Swift, Rust, C++</li>
+</ul>
+<h3 id="pros-1">Pros</h3>
+<ul>
+<li>Easy to retrofit</li>
+<li>Simple?</li>
+</ul>
+<h3 id="cons-1">Cons</h3>
+<ul>
+<li>Can’t handle cyclic structures (like Graphs)</li>
+<li>Counters aren’t thread-safe, so perf hit.</li>
+<li>Can trigger large GC pauses on frequently referenced data.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="mark-sweep-collector">Mark Sweep Collector</h3>
+<ul>
+<li>Every once in a while, pause the program’s execution, and see if objects are reachable.</li>
+<li>If reachable, mark as reachable.</li>
+<li>If not reachable, reclaim.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><img src="./assets/MARK_SWEEP_GC.gif" width="800px" height="600px" /></p>
+</section>
+<section class="slide level1">
+
+<h3 id="usage-2">Usage</h3>
+<ul>
+<li>Lisp, Java, etc.</li>
+</ul>
+<h3 id="pros-2">Pros</h3>
+<ul>
+<li>Less overhead than RC.</li>
+<li>No counting required</li>
+</ul>
+<h3 id="cons-2">Cons</h3>
+<ul>
+<li>Fragmentation</li>
+<li>Can trigger large GC pauses when there’s a large amount of data.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="mark-compact">Mark Compact</h3>
+<ul>
+<li>Mark-Sweep, but compacts memory after sweep.</li>
+<li>This requires an extra sweep to figure out where to put items.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><img src="./assets/MARK_SWEEP_GC.gif" width="800px" height="600px" /></p>
+</section>
+<section class="slide level1">
+
+<h3 id="usage-3">Usage</h3>
+<ul>
+<li>Lisp, Java, etc.</li>
+</ul>
+<h3 id="pros-3">Pros</h3>
+<ul>
+<li>Less Fragmentation</li>
+<li>Better Performance?</li>
+</ul>
+<h3 id="cons-3">Cons</h3>
+<ul>
+<li>GC Pauses are longer than Mark-Sweep.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="copying-collector">Copying Collector</h3>
+<ul>
+<li>People figured out that young objects tend to be freed more than older objects.</li>
+<li>Create an area for young objects and one for old objects.</li>
+<li>Check the young area more often, and move young objects to the old area when some time has passed.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><img src="./assets/COPY_GC.gif" width="800px" height="600px" /></p>
+</section>
+<section class="slide level1">
+
+<h3 id="usage-4">Usage</h3>
+<ul>
+<li>Lisp, Java, etc.</li>
+</ul>
+<h3 id="pros-4">Pros</h3>
+<ul>
+<li>Fewer Sweeps</li>
+<li>Less Fragmentation</li>
+</ul>
+<h3 id="cons-4">Cons</h3>
+<ul>
+<li>Memory might take more time to be freed.</li>
+<li>Requires moving memory around.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="gc-throughput">GC Throughput</h3>
+<figure>
+<img data-src="./assets/gc-speed.png" alt="GC Speed" /><figcaption aria-hidden="true">GC Speed</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pause-duration">Pause Duration</h3>
+<figure>
+<img data-src="./assets/gc-pause.png" alt="GC Pause" /><figcaption aria-hidden="true">GC Pause</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="takeaways">Takeaways</h2>
+<ul>
+<li>GC performance can vary wildly based on what GC you choose.</li>
+<li>Pick one that suits your workload.</li>
+<li>It’s hard to make a general purpose GC.</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="../_includes/reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../_includes/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../_includes/reveal.js/plugin/search/search.js"></script>
+  <script src="../_includes/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

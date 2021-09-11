@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+pandoc index.md -o presentations/index.html --template=template.html --metadata title="Presentations"
+
+for d in $(ls ./presentations); do
+    (cd presentations/$d && make)
+done
