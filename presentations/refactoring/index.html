@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title>index</title>
+  <title>Refactoring</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -19,6 +19,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -86,6 +87,9 @@
   <div class="reveal">
     <div class="slides">
 
+<section id="title-slide">
+  <h1 class="title">Refactoring</h1>
+</section>
 
 <section id="refactoring" class="slide level2">
 <h2>Refactoring</h2>
@@ -100,28 +104,28 @@
 <section class="slide level2">
 
 <h3 id="migrating-from-python-2-to-3">Migrating from Python 2 to 3</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">def</span> greet(name):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="bu">print</span> <span class="st">&quot;Hello, </span><span class="sc">{0}</span><span class="st">!&quot;</span>.<span class="bu">format</span>(name)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="bu">print</span> <span class="st">&quot;What&#39;s your name?&quot;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>name <span class="op">=</span> <span class="bu">raw_input</span>()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>greet(name)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="ex">2to3</span> greet.py</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> <span class="st">&quot;Hello, </span><span class="sc">{0}</span><span class="st">!&quot;</span>.<span class="bu">format</span>(name)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> <span class="st">&quot;What&#39;s your name?&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="bu">raw_input</span>()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>greet(name)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">2to3</span> greet.py</span></code></pre></div>
 <!-- .element: class="fragment" -->
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">def</span> greet(name):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;Hello, </span><span class="sc">{0}</span><span class="st">!&quot;</span>.<span class="bu">format</span>(name))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;What&#39;s your name?&quot;</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>name <span class="op">=</span> <span class="bu">input</span>()</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>greet(name)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Hello, </span><span class="sc">{0}</span><span class="st">!&quot;</span>.<span class="bu">format</span>(name))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;What&#39;s your name?&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="bu">input</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>greet(name)</span></code></pre></div>
 <!-- .element: class="fragment" -->
 </section>
 <section class="slide level2">
 
 <h3 id="why-not-regex">Why not regex?</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="cf">if</span> (x == <span class="dv">5</span>) {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>  puts(x);</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="cf">if</span> (x == <span class="dv">5</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>  puts(x);</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>x <span class="op">==</span> <span class="dv">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  puts<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>x <span class="op">==</span> <span class="dv">5</span><span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  puts<span class="op">(</span>x<span class="op">);</span></span></code></pre></div>
 <!-- .element: class="fragment" -->
 </section>
 <section class="slide level2">
@@ -137,124 +141,124 @@
 
 <h3 id="what-are-parser-combinators">What are Parser Combinators?</h3>
 <p>Here’s a JSON parser definition:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Debug</span><span class="op">,</span> <span class="bu">PartialEq</span><span class="at">)]</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">enum</span> JsonValue <span class="op">{</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    <span class="bu">Str</span>(<span class="dt">String</span>)<span class="op">,</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    Boolean(<span class="dt">bool</span>)<span class="op">,</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    Num(<span class="dt">f64</span>)<span class="op">,</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    Array(<span class="dt">Vec</span><span class="op">&lt;</span>JsonValue<span class="op">&gt;</span>)<span class="op">,</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>    Object(HashMap<span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> JsonValue<span class="op">&gt;</span>)<span class="op">,</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Debug</span><span class="op">,</span> <span class="bu">PartialEq</span><span class="at">)]</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">enum</span> JsonValue <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Str</span>(<span class="dt">String</span>)<span class="op">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    Boolean(<span class="dt">bool</span>)<span class="op">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    Num(<span class="dt">f64</span>)<span class="op">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    Array(<span class="dt">Vec</span><span class="op">&lt;</span>JsonValue<span class="op">&gt;</span>)<span class="op">,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    Object(HashMap<span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> JsonValue<span class="op">&gt;</span>)<span class="op">,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">fn</span> parse_whitespace<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    <span class="kw">let</span> chars <span class="op">=</span> <span class="st">&quot; </span><span class="sc">\t\r\n</span><span class="st">&quot;</span><span class="op">;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    take_while(<span class="kw">move</span> <span class="op">|</span>c<span class="op">|</span> chars<span class="op">.</span>contains(c))(i)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_whitespace<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> chars <span class="op">=</span> <span class="st">&quot; </span><span class="sc">\t\r\n</span><span class="st">&quot;</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    take_while(<span class="kw">move</span> <span class="op">|</span>c<span class="op">|</span> chars<span class="op">.</span>contains(c))(i)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb8"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">fn</span> parse_str<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    escaped(alphanumeric<span class="op">,</span> <span class="ch">&#39;</span><span class="sc">\\</span><span class="ch">&#39;</span><span class="op">,</span> one_of(<span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">n</span><span class="sc">\\</span><span class="st">&quot;</span>))(i)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_str<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    escaped(alphanumeric<span class="op">,</span> <span class="ch">&#39;</span><span class="sc">\\</span><span class="ch">&#39;</span><span class="op">,</span> one_of(<span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">n</span><span class="sc">\\</span><span class="st">&quot;</span>))(i)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">fn</span> parse_bool<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="dt">bool</span><span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    <span class="kw">let</span> parse_true <span class="op">=</span> value(<span class="cn">true</span><span class="op">,</span> tag(<span class="st">&quot;true&quot;</span>))<span class="op">;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    <span class="kw">let</span> parse_false <span class="op">=</span> value(<span class="cn">false</span><span class="op">,</span> tag(<span class="st">&quot;false&quot;</span>))<span class="op">;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    alt((parse_true<span class="op">,</span> parse_false))(i)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_bool<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="dt">bool</span><span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> parse_true <span class="op">=</span> value(<span class="cn">true</span><span class="op">,</span> tag(<span class="st">&quot;true&quot;</span>))<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> parse_false <span class="op">=</span> value(<span class="cn">false</span><span class="op">,</span> tag(<span class="st">&quot;false&quot;</span>))<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    alt((parse_true<span class="op">,</span> parse_false))(i)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">fn</span> parse_string<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    context(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>        <span class="st">&quot;string&quot;</span><span class="op">,</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>        preceded(<span class="dt">char</span>(<span class="ch">&#39;</span><span class="sc">\&quot;</span><span class="ch">&#39;</span>)<span class="op">,</span> cut(terminated(parse_str<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;</span><span class="sc">\&quot;</span><span class="ch">&#39;</span>))))<span class="op">,</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    )(i)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_string<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    context(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;string&quot;</span><span class="op">,</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        preceded(<span class="dt">char</span>(<span class="ch">&#39;</span><span class="sc">\&quot;</span><span class="ch">&#39;</span>)<span class="op">,</span> cut(terminated(parse_str<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;</span><span class="sc">\&quot;</span><span class="ch">&#39;</span>))))<span class="op">,</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    )(i)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb11"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">fn</span> parse_array<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="dt">Vec</span><span class="op">&lt;</span>JsonValue<span class="op">&gt;,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>    context(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>        <span class="st">&quot;array&quot;</span><span class="op">,</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>        preceded(</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>            <span class="dt">char</span>(<span class="ch">&#39;[&#39;</span>)<span class="op">,</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>            cut(terminated(</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>                separated_list0(preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;,&#39;</span>))<span class="op">,</span> json_value)<span class="op">,</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>                preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;]&#39;</span>))<span class="op">,</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>            ))<span class="op">,</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>        )<span class="op">,</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>    )(i)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_array<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> <span class="dt">Vec</span><span class="op">&lt;</span>JsonValue<span class="op">&gt;,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    context(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;array&quot;</span><span class="op">,</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        preceded(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">char</span>(<span class="ch">&#39;[&#39;</span>)<span class="op">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>            cut(terminated(</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                separated_list0(preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;,&#39;</span>))<span class="op">,</span> json_value)<span class="op">,</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;]&#39;</span>))<span class="op">,</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>            ))<span class="op">,</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    )(i)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb12"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">fn</span> key_value<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> (<span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> JsonValue)<span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    separated_pair(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>        preceded(parse_whitespace<span class="op">,</span> parse_string)<span class="op">,</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>        cut(preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;:&#39;</span>)))<span class="op">,</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>        json_value<span class="op">,</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>    )(i)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> key_value<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> (<span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> JsonValue)<span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    separated_pair(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        preceded(parse_whitespace<span class="op">,</span> parse_string)<span class="op">,</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        cut(preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;:&#39;</span>)))<span class="op">,</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        json_value<span class="op">,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    )(i)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb13"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">fn</span> parse_hash<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> HashMap<span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> JsonValue<span class="op">&gt;,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    context(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>        <span class="st">&quot;map&quot;</span><span class="op">,</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>        preceded(</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>            <span class="dt">char</span>(<span class="ch">&#39;{&#39;</span>)<span class="op">,</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a>            cut(terminated(</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>                map(</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>                    separated_list0(preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;,&#39;</span>))<span class="op">,</span> key_value)<span class="op">,</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a>                    <span class="op">|</span>tuple_vec<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a>                        tuple_vec</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>                            <span class="op">.</span>into_iter()</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a>                            <span class="op">.</span>map(<span class="op">|</span>(k<span class="op">,</span> v)<span class="op">|</span> (<span class="dt">String</span><span class="pp">::</span>from(k)<span class="op">,</span> v))</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a>                            <span class="op">.</span>collect()</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true"></a>                    <span class="op">},</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true"></a>                )<span class="op">,</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true"></a>                preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;}&#39;</span>))<span class="op">,</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true"></a>            ))<span class="op">,</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true"></a>        )<span class="op">,</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true"></a>    )(i)</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_hash<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> HashMap<span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> JsonValue<span class="op">&gt;,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    context(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;map&quot;</span><span class="op">,</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        preceded(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">char</span>(<span class="ch">&#39;{&#39;</span>)<span class="op">,</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            cut(terminated(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                map(</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                    separated_list0(preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;,&#39;</span>))<span class="op">,</span> key_value)<span class="op">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                    <span class="op">|</span>tuple_vec<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                        tuple_vec</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                            <span class="op">.</span>into_iter()</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                            <span class="op">.</span>map(<span class="op">|</span>(k<span class="op">,</span> v)<span class="op">|</span> (<span class="dt">String</span><span class="pp">::</span>from(k)<span class="op">,</span> v))</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                            <span class="op">.</span>collect()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                    <span class="op">},</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                )<span class="op">,</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>                preceded(parse_whitespace<span class="op">,</span> <span class="dt">char</span>(<span class="ch">&#39;}&#39;</span>))<span class="op">,</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>            ))<span class="op">,</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    )(i)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb14"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">fn</span> json_value<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> JsonValue<span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>    preceded(</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>        parse_whitespace<span class="op">,</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>        alt((</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>            map(parse_hash<span class="op">,</span> <span class="pp">JsonValue::</span>Object)<span class="op">,</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>            map(parse_array<span class="op">,</span> <span class="pp">JsonValue::</span>Array)<span class="op">,</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>            map(parse_string<span class="op">,</span> <span class="op">|</span>s<span class="op">|</span> <span class="pp">JsonValue::</span><span class="bu">Str</span>(s<span class="op">.</span>to_string()))<span class="op">,</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>            map(double<span class="op">,</span> <span class="pp">JsonValue::</span>Num)<span class="op">,</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a>            map(parse_bool<span class="op">,</span> <span class="pp">JsonValue::</span>Boolean)<span class="op">,</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>        ))<span class="op">,</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>    )(i)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> json_value<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> JsonValue<span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    preceded(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        parse_whitespace<span class="op">,</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        alt((</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            map(parse_hash<span class="op">,</span> <span class="pp">JsonValue::</span>Object)<span class="op">,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>            map(parse_array<span class="op">,</span> <span class="pp">JsonValue::</span>Array)<span class="op">,</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            map(parse_string<span class="op">,</span> <span class="op">|</span>s<span class="op">|</span> <span class="pp">JsonValue::</span><span class="bu">Str</span>(s<span class="op">.</span>to_string()))<span class="op">,</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            map(double<span class="op">,</span> <span class="pp">JsonValue::</span>Num)<span class="op">,</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            map(parse_bool<span class="op">,</span> <span class="pp">JsonValue::</span>Boolean)<span class="op">,</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        ))<span class="op">,</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    )(i)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb15"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">fn</span> root<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> JsonValue<span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>    delimited(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>        parse_whitespace<span class="op">,</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>        alt((</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>            map(parse_hash<span class="op">,</span> <span class="pp">JsonValue::</span>Object)<span class="op">,</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>            map(parse_array<span class="op">,</span> <span class="pp">JsonValue::</span>Array)<span class="op">,</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>        ))<span class="op">,</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>        opt(parse_whitespace)<span class="op">,</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a>    )(i)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> root<span class="op">&lt;</span><span class="ot">&#39;a</span><span class="op">&gt;</span>(i<span class="op">:</span> <span class="op">&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span>) <span class="op">-&gt;</span> IResult<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">,</span> JsonValue<span class="op">,</span> VerboseError<span class="op">&lt;&amp;</span><span class="ot">&#39;a</span> <span class="dt">str</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    delimited(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        parse_whitespace<span class="op">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        alt((</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            map(parse_hash<span class="op">,</span> <span class="pp">JsonValue::</span>Object)<span class="op">,</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            map(parse_array<span class="op">,</span> <span class="pp">JsonValue::</span>Array)<span class="op">,</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        ))<span class="op">,</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        opt(parse_whitespace)<span class="op">,</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    )(i)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
@@ -268,69 +272,69 @@
 <section class="slide level2">
 
 <p>Let’s try replacing the fields of a rust struct with shorthand syntax:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">let</span> bar<span class="op">:</span> <span class="dt">u8</span> <span class="op">=</span> <span class="dv">123</span><span class="op">;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="kw">struct</span> Foo <span class="op">{</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>    bar<span class="op">:</span> <span class="dt">u8</span><span class="op">,</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a><span class="kw">let</span> foo <span class="op">=</span> Foo <span class="op">{</span> bar<span class="op">:</span> bar <span class="op">};</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="kw">let</span> bar<span class="op">:</span> <span class="dt">u8</span> <span class="op">=</span> <span class="dv">123</span><span class="op">;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="kw">struct</span> Foo <span class="op">{</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>    bar<span class="op">:</span> <span class="dt">u8</span><span class="op">,</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a><span class="kw">let</span> foo <span class="op">=</span> Foo <span class="op">{</span> bar <span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> bar<span class="op">:</span> <span class="dt">u8</span> <span class="op">=</span> <span class="dv">123</span><span class="op">;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Foo <span class="op">{</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    bar<span class="op">:</span> <span class="dt">u8</span><span class="op">,</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> foo <span class="op">=</span> Foo <span class="op">{</span> bar<span class="op">:</span> bar <span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> bar<span class="op">:</span> <span class="dt">u8</span> <span class="op">=</span> <span class="dv">123</span><span class="op">;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Foo <span class="op">{</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    bar<span class="op">:</span> <span class="dt">u8</span><span class="op">,</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> foo <span class="op">=</span> Foo <span class="op">{</span> bar <span class="op">};</span></span></code></pre></div>
 <p><a href="https://comby.live/#%7B%22substitution_kind%22:%20%22in_place%22,%20%22language%22:%20%22.rs%22,%20%22rewrite%22:%20%22%7B%20:%5Bfield%5D%20%7D%22,%20%22rule%22:%20%22where%20:%5Bfield%5D%20==%20:%5Buse%5D\n%22,%20%22source%22:%20%22let%20bar:%20u8%20=%20123;\nstruct%20Foo%20%7B\n%20%20%20%20bar:%20u8,\n%7D\nlet%20foo%20=%20Foo%20%7B%20bar:%20bar%20%7D;\n%22,%20%22id%22:%200,%20%22match%22:%20%22%7B%20:%5B%5Bfield%5D%5D:%20:%5B%5Buse%5D%5D%20%7D%22%7D">Link</a></p>
 </section>
 <section class="slide level2">
 
 <p>What about in Ruby?</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>{<span class="st">&quot;key&quot;</span> =&gt; <span class="st">&quot;value&quot;</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span><span class="st">&quot;key&quot;</span> <span class="kw">=&gt;</span> <span class="st">&quot;value&quot;</span><span class="kw">}</span></span></code></pre></div>
 <p>Replace with shorthand symbol syntax:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>{<span class="st">key: &quot;value&quot;</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span><span class="wa">key: </span><span class="st">&quot;value&quot;</span><span class="kw">}</span></span></code></pre></div>
 <p><a href="https://bit.ly/3iI2EZn">Link</a></p>
 </section>
 <section class="slide level2">
 
 <p>Multiline version:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>{<span class="st">&quot;foo&quot;</span> =&gt; <span class="st">&quot;bar&quot;</span>,<span class="st">&quot;baz&quot;</span> =&gt; <span class="st">&quot;qux&quot;</span>,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="st">&quot;newline&quot;</span> =&gt; <span class="st">&quot;lol&quot;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>{<span class="st">foo: &quot;bar&quot;</span>,<span class="st">baz: &quot;qux&quot;</span>,</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="st">newline: &quot;lol&quot;</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span><span class="st">&quot;foo&quot;</span> <span class="kw">=&gt;</span> <span class="st">&quot;bar&quot;</span>,<span class="st">&quot;baz&quot;</span> <span class="kw">=&gt;</span> <span class="st">&quot;qux&quot;</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;newline&quot;</span> <span class="kw">=&gt;</span> <span class="st">&quot;lol&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span><span class="wa">foo: </span><span class="st">&quot;bar&quot;</span>,<span class="wa">baz: </span><span class="st">&quot;qux&quot;</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="wa">newline: </span><span class="st">&quot;lol&quot;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
 <p><a href="https://bit.ly/2YaBYHc">Link</a></p>
 </section>
 <section class="slide level2">
 
 <p>We also have to fix all callers:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a>m = {<span class="st">&quot;key&quot;</span> =&gt; <span class="st">&quot;value&quot;</span>}</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>m[<span class="st">&quot;key&quot;</span>] <span class="co"># &quot;value&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a>m = {<span class="st">key: &quot;value&quot;</span>}</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a>m[<span class="st">:key</span>] <span class="co"># &quot;value&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m <span class="kw">=</span> <span class="kw">{</span><span class="st">&quot;key&quot;</span> <span class="kw">=&gt;</span> <span class="st">&quot;value&quot;</span><span class="kw">}</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>m<span class="kw">[</span><span class="st">&quot;key&quot;</span><span class="kw">]</span> <span class="co"># &quot;value&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode rb"><code class="sourceCode ruby"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>m <span class="kw">=</span> <span class="kw">{</span><span class="wa">key: </span><span class="st">&quot;value&quot;</span><span class="kw">}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>m<span class="kw">[</span><span class="wa">:key</span><span class="kw">]</span> <span class="co"># &quot;value&quot;</span></span></code></pre></div>
 <p><a href="https://bit.ly/36aMh29">Link</a></p>
 </section>
 <section class="slide level2">
 
 <p>How about in C?</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="cf">if</span> (x == <span class="dv">5</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a>  puts(str);</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="cf">if</span> (x == <span class="dv">5</span>) {</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a>  puts(x);</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>x <span class="op">==</span> <span class="dv">5</span><span class="op">)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  puts<span class="op">(</span>str<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>x <span class="op">==</span> <span class="dv">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  puts<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p><a href="https://bit.ly/3iIpujx">Link</a></p>
 </section>
 <section class="slide level2">
 
 <p>Use the docs:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="ex">https</span>://comby.dev/</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">https://comby.dev/</span></span></code></pre></div>
 <p>Installating <code>comby</code>?</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="ex">brew</span> install comby</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install comby</span></code></pre></div>
 </section>
     </div>
   </div>
 
   <script src="../_includes/reveal.js/dist/reveal.js"></script>
 
-  // reveal.js plugins
+  <!-- reveal.js plugins -->
   <script src="../_includes/reveal.js/plugin/notes/notes.js"></script>
   <script src="../_includes/reveal.js/plugin/search/search.js"></script>
   <script src="../_includes/reveal.js/plugin/zoom/zoom.js"></script>
@@ -340,8 +344,10 @@
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-        // Push each slide change to the browser history
-        history: true,
+      
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
 
         // reveal.js plugins
         plugins: [

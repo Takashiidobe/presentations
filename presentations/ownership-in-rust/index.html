@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title>index</title>
+  <title>Ownership in Rust</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -19,6 +19,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -86,6 +87,9 @@
   <div class="reveal">
     <div class="slides">
 
+<section id="title-slide">
+  <h1 class="title">Ownership in Rust</h1>
+</section>
 
 <section>
 <section id="ownership-and-borrowing-in-rust" class="title-slide slide level2">
@@ -125,30 +129,30 @@
 <li>Does this compile?</li>
 <li>what does it print?</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  vector&lt;tuple&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt;&gt; vec = {{<span class="dv">5</span>, <span class="dv">10</span>}};</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>  <span class="at">const</span> <span class="kw">auto</span> &amp;first_elem = vec.front();</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10</span>; ++i) vec.push_back(first_elem);</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span> [x, y]: vec) cout &lt;&lt; x &lt;&lt; <span class="ch">&#39; &#39;</span> &lt;&lt;  y &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  vector<span class="op">&lt;</span>tuple<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">&gt;&gt;</span> vec <span class="op">=</span> <span class="op">{{</span><span class="dv">5</span><span class="op">,</span> <span class="dv">10</span><span class="op">}};</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">const</span> <span class="kw">auto</span> <span class="op">&amp;</span>first_elem <span class="op">=</span> vec<span class="op">.</span>front<span class="op">();</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> vec<span class="op">.</span>push_back<span class="op">(</span>first_elem<span class="op">);</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="at">const</span> <span class="kw">auto</span> <span class="op">[</span>x<span class="op">,</span> y<span class="op">]:</span> vec<span class="op">)</span> cout <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> <span class="ch">&#39; &#39;</span> <span class="op">&lt;&lt;</span>  y <span class="op">&lt;&lt;</span> <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section id="memory-safety-cont." class="slide level3">
 <h3>Memory Safety Cont.</h3>
 <p>It does, rather confusingly:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="ex">5</span> 10</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="ex">5</span> 10</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="ex">0</span> 0</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="ex">0</span> 0</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="ex">0</span> 0</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="ex">0</span> 0</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="ex">0</span> 0</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="ex">0</span> 0</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="ex">0</span> 0</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="ex">0</span> 0</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="ex">0</span> 0</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">5</span> 10</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">5</span> 10</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 0</span></code></pre></div>
 </section>
 <section class="slide level3">
 
@@ -160,15 +164,15 @@
 <li>Does this compile?</li>
 <li>what does it print?</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>  vector&lt;string&gt; strings = {<span class="st">&quot;Hi&quot;</span>};</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  <span class="at">const</span> <span class="kw">auto</span>&amp; elem = strings[<span class="dv">0</span>];</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>  strings.push_back(<span class="st">&quot;World&quot;</span>);</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>  cout &lt;&lt; elem &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  vector<span class="op">&lt;</span>string<span class="op">&gt;</span> strings <span class="op">=</span> <span class="op">{</span><span class="st">&quot;Hi&quot;</span><span class="op">};</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> elem <span class="op">=</span> strings<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  strings<span class="op">.</span>push_back<span class="op">(</span><span class="st">&quot;World&quot;</span><span class="op">);</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  cout <span class="op">&lt;&lt;</span> elem <span class="op">&lt;&lt;</span> <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span><span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section id="iterator-invalidation-cont." class="slide level3">
 <h3>Iterator Invalidation Cont.</h3>
@@ -185,29 +189,29 @@
 <li>Does this compile?</li>
 <li>If so, what does it print?</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> vec <span class="op">=</span> <span class="pp">vec!</span>[(<span class="dv">5</span><span class="op">,</span> <span class="dv">10</span>)]<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>  <span class="kw">let</span> first_elem <span class="op">=</span> <span class="op">&amp;</span>vec[<span class="dv">0</span>]<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>  <span class="kw">for</span> _ <span class="kw">in</span> <span class="dv">1</span><span class="op">..</span><span class="dv">10</span> <span class="op">{</span> vec<span class="op">.</span>push(<span class="op">*</span>first_elem)<span class="op">;</span> <span class="op">}</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>  <span class="kw">for</span> p <span class="kw">in</span> vec <span class="op">{</span> <span class="pp">println!</span>(<span class="st">&quot;{}, {}&quot;</span><span class="op">,</span> p<span class="op">.</span><span class="dv">0</span><span class="op">,</span> p<span class="op">.</span><span class="dv">1</span>)<span class="op">;</span> <span class="op">}</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">mut</span> vec <span class="op">=</span> <span class="pp">vec!</span>[(<span class="dv">5</span><span class="op">,</span> <span class="dv">10</span>)]<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> first_elem <span class="op">=</span> <span class="op">&amp;</span>vec[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">for</span> _ <span class="kw">in</span> <span class="dv">1</span><span class="op">..</span><span class="dv">10</span> <span class="op">{</span> vec<span class="op">.</span>push(<span class="op">*</span>first_elem)<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">for</span> p <span class="kw">in</span> vec <span class="op">{</span> <span class="pp">println!</span>(<span class="st">&quot;{}, {}&quot;</span><span class="op">,</span> p<span class="op">.</span><span class="dv">0</span><span class="op">,</span> p<span class="op">.</span><span class="dv">1</span>)<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level3">
 
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="ex">error</span>[E0502]: cannot borrow <span class="kw">`</span><span class="ex">vec</span><span class="kw">`</span> as mutable because</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="ex">it</span> is also borrowed as immutable</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:4:22</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>  <span class="kw">|</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="ex">3</span> <span class="kw">|</span>     <span class="bu">let</span> first_elem = <span class="kw">&amp;</span><span class="ex">vec</span>[0]<span class="kw">;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>  <span class="kw">|</span>                       <span class="ex">---</span> immutable borrow occurs here</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="ex">4</span> <span class="kw">|</span>     <span class="kw">for</span> <span class="ex">_</span> in 1..10 { vec.push(*first_elem); }</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>  <span class="kw">|</span>                      ^^^^^^^^^<span class="ex">-----------</span>^</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="kw">|</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="ex">immutable</span> borrow</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="ex">later</span> used here</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>  <span class="kw">|</span>                      <span class="ex">mutable</span> borrow occurs here</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a><span class="ex">error</span>: aborting due to previous error</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">error</span><span class="op">[</span>E0502<span class="op">]</span><span class="ex">:</span> cannot borrow <span class="kw">`</span><span class="ex">vec</span><span class="kw">`</span> as mutable because</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">it</span> is also borrowed as immutable</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:4:22</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">3</span> <span class="kw">|</span>     <span class="bu">let</span> <span class="va">first_elem</span> <span class="op">=</span> <span class="kw">&amp;</span><span class="va">vec</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="kw">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>                       <span class="ex">---</span> immutable borrow occurs here</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">4</span> <span class="kw">|</span>     <span class="cf">for</span> _ <span class="kw">in</span> 1..10 { vec.push<span class="er">(</span><span class="ex">*first_elem</span><span class="kw">);</span> <span class="er">}</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>                      <span class="ex">^^^^^^^^^-----------^</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="kw">|</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="ex">immutable</span> borrow</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>                      <span class="kw">|</span>        <span class="ex">later</span> used here</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>                      <span class="ex">mutable</span> borrow occurs here</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ex">error:</span> aborting due to previous error</span></code></pre></div>
 </section>
 <section class="slide level3">
 
@@ -219,25 +223,25 @@
 <li>Does this compile?</li>
 <li>If so, what does it print?</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> vec <span class="op">=</span> <span class="pp">vec!</span>[<span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;Hi&quot;</span>)]<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>  <span class="kw">let</span> first_elem <span class="op">=</span> <span class="op">&amp;</span>vec[<span class="dv">0</span>]<span class="op">;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>  vec<span class="op">.</span>push(first_elem<span class="op">.</span>to_string())<span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>  <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> first_elem)<span class="op">;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">mut</span> vec <span class="op">=</span> <span class="pp">vec!</span>[<span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;Hi&quot;</span>)]<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> first_elem <span class="op">=</span> <span class="op">&amp;</span>vec[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  vec<span class="op">.</span>push(first_elem<span class="op">.</span>to_string())<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> first_elem)<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level3">
 
-<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="ex">error</span>[E0502]: cannot borrow <span class="kw">`</span><span class="ex">vec</span><span class="kw">`</span> as mutable because</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="ex">it</span> is also borrowed as immutable</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:4:5</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>  <span class="kw">|</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="ex">3</span> <span class="kw">|</span>     <span class="bu">let</span> first_elem = <span class="kw">&amp;</span><span class="ex">vec</span>[0]<span class="kw">;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>  <span class="kw">|</span>                       <span class="ex">---</span> immutable borrow occurs here</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="ex">4</span> <span class="kw">|</span>     <span class="ex">vec.push</span>(first_elem.to_string());</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>  <span class="kw">|</span>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ <span class="ex">mutable</span> borrow occurs here</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="ex">5</span> <span class="kw">|</span>     <span class="ex">println</span>!(<span class="st">&quot;{}&quot;</span>, first_elem);</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>  <span class="kw">|</span>                    <span class="ex">----------</span> immutable borrow later used here</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">error</span><span class="op">[</span>E0502<span class="op">]</span><span class="ex">:</span> cannot borrow <span class="kw">`</span><span class="ex">vec</span><span class="kw">`</span> as mutable because</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">it</span> is also borrowed as immutable</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:4:5</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">3</span> <span class="kw">|</span>     <span class="bu">let</span> <span class="va">first_elem</span> <span class="op">=</span> <span class="kw">&amp;</span><span class="va">vec</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="kw">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>                       <span class="ex">---</span> immutable borrow occurs here</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">4</span> <span class="kw">|</span>     <span class="ex">vec.push</span><span class="er">(</span><span class="fu">first_elem.to_string()</span><span class="kw">);</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>     <span class="ex">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span> mutable borrow occurs here</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ex">5</span> <span class="kw">|</span>     <span class="ex">println!</span><span class="er">(</span><span class="st">&quot;{}&quot;</span><span class="ex">,</span> first_elem<span class="kw">);</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>                    <span class="ex">----------</span> immutable borrow later used here</span></code></pre></div>
 </section>
 <section class="slide level3">
 
@@ -270,28 +274,28 @@
 </section>
 <section id="is-this-program-ok" class="slide level3">
 <h3>Is this program ok?</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="dt">void</span> print_arr(<span class="at">const</span> vector&lt;<span class="dt">int</span>&gt; &amp;vec);</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>  print_arr({<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>});</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> print_arr<span class="op">(</span><span class="at">const</span> vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> <span class="op">&amp;</span>vec<span class="op">);</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  print_arr<span class="op">({</span><span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">});</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section id="does-it-look-fine-now" class="slide level3">
 <h3>Does it look fine now?</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="dt">void</span> print_arr(<span class="at">const</span> vector&lt;<span class="dt">int</span>&gt; &amp;vec) {</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span> elem: vec) cout &lt;&lt; elem &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>  <span class="kw">delete</span> &amp;vec;</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>}</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>  print_arr({<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>});</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> print_arr<span class="op">(</span><span class="at">const</span> vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> <span class="op">&amp;</span>vec<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="at">const</span> <span class="kw">auto</span> elem<span class="op">:</span> vec<span class="op">)</span> cout <span class="op">&lt;&lt;</span> elem <span class="op">&lt;&lt;</span> <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">delete</span> <span class="op">&amp;</span>vec<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  print_arr<span class="op">({</span><span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">});</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section id="types-cant-save-us" class="slide level3">
 <h3>Types can’t save us</h3>
@@ -302,45 +306,45 @@
 </section>
 <section id="in-rust" class="slide level3">
 <h3>In Rust</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">fn</span> print_vec(vec<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span>) <span class="op">{</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>  <span class="kw">for</span> item <span class="kw">in</span> vec <span class="op">{</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> item)<span class="op">;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>  <span class="op">}</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>  drop(<span class="op">*</span>vec)<span class="op">;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>  print_vec(<span class="op">&amp;</span><span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span>])<span class="op">;</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> print_vec(vec<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span>) <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">for</span> item <span class="kw">in</span> vec <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> item)<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  drop(<span class="op">*</span>vec)<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  print_vec(<span class="op">&amp;</span><span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span>])<span class="op">;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level3">
 
-<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="ex">error</span>[E0507]: cannot move out of <span class="kw">`</span><span class="ex">*vec</span><span class="kw">`</span> which is behind</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="ex">a</span> shared reference</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:5:10</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>  <span class="kw">|</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a><span class="ex">5</span> <span class="kw">|</span>     <span class="ex">drop</span>(*vec);</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>  <span class="kw">|</span>          ^^^^ <span class="ex">move</span> occurs because <span class="kw">`</span><span class="ex">*vec</span><span class="kw">`</span> has type</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>  <span class="kw">|</span>               <span class="kw">`</span><span class="ex">std</span>::vec::Vec<span class="op">&lt;</span>i32<span class="op">&gt;</span><span class="kw">`</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>  <span class="kw">|</span>               <span class="fu">which</span> does not implement the <span class="kw">`</span><span class="ex">Copy</span><span class="kw">`</span> trait</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">error</span><span class="op">[</span>E0507<span class="op">]</span><span class="ex">:</span> cannot move out of <span class="kw">`</span><span class="ex">*vec</span><span class="kw">`</span> which is behind</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">a</span> shared reference</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:5:10</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">5</span> <span class="kw">|</span>     <span class="ex">drop</span><span class="er">(</span><span class="ex">*vec</span><span class="kw">);</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>          <span class="ex">^^^^</span> move occurs because <span class="kw">`</span><span class="ex">*vec</span><span class="kw">`</span> has type</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>               <span class="kw">`</span><span class="ex">std::vec::Vec</span><span class="op">&lt;</span>i32<span class="op">&gt;</span><span class="kw">`</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span>               <span class="fu">which</span> does not implement the <span class="kw">`</span><span class="ex">Copy</span><span class="kw">`</span> trait</span></code></pre></div>
 </section>
 <section id="fearless-concurrency" class="slide level3">
 <h3>Fearless Concurrency</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>vector&lt;<span class="dt">int</span>&gt; nums;</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="dt">void</span> writeToNums() {</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">3</span>; i++)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>  nums.push_back(i);</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>}</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>  vector&lt;thread&gt; threads;</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">20</span>; i++) threads.emplace_back(writeToNums);</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="kw">auto</span>&amp; th: threads) th.join();</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="kw">auto</span> item: nums) cout &lt;&lt; item &lt;&lt; <span class="ch">&#39; &#39;</span>;</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> nums<span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> writeToNums<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">3</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  nums<span class="op">.</span>push_back<span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  vector<span class="op">&lt;</span>thread<span class="op">&gt;</span> threads<span class="op">;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">20</span><span class="op">;</span> i<span class="op">++)</span> threads<span class="op">.</span>emplace_back<span class="op">(</span>writeToNums<span class="op">);</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="kw">auto</span><span class="op">&amp;</span> th<span class="op">:</span> threads<span class="op">)</span> th<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="kw">auto</span> item<span class="op">:</span> nums<span class="op">)</span> cout <span class="op">&lt;&lt;</span> item <span class="op">&lt;&lt;</span> <span class="ch">&#39; &#39;</span><span class="op">;</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level3">
 
@@ -348,45 +352,45 @@
 </section>
 <section id="in-rust-1" class="slide level3">
 <h3>In Rust</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>thread<span class="op">;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="kw">fn</span> write_to_nums(nums<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span>) <span class="op">{</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>  <span class="kw">for</span> i <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span><span class="dv">3</span> <span class="op">{</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    nums<span class="op">.</span>push(i)<span class="op">;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>  <span class="op">}</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> nums <span class="op">=</span> <span class="pp">vec!</span>[]<span class="op">;</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> threads <span class="op">=</span> <span class="pp">vec!</span>[]<span class="op">;</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a>  <span class="kw">for</span> _ <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span><span class="dv">20</span> <span class="op">{</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>    threads<span class="op">.</span>push(<span class="pp">thread::</span>spawn(<span class="kw">move</span> <span class="op">||</span> <span class="op">{</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a>      write_to_nums(<span class="op">&amp;</span><span class="kw">mut</span> nums)<span class="op">;</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a>    <span class="op">}</span>))<span class="op">;</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true"></a>  <span class="op">}</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true"></a>  <span class="kw">for</span> thread <span class="kw">in</span> threads <span class="op">{</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true"></a>    <span class="kw">let</span> _ <span class="op">=</span> thread<span class="op">.</span>join()<span class="op">;</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true"></a>  <span class="op">}</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true"></a>  <span class="kw">for</span> num <span class="kw">in</span> nums <span class="op">{</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> num)<span class="op">;</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true"></a>  <span class="op">}</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::</span>thread<span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> write_to_nums(nums<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span>) <span class="op">{</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">for</span> i <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span><span class="dv">3</span> <span class="op">{</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    nums<span class="op">.</span>push(i)<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">mut</span> nums <span class="op">=</span> <span class="pp">vec!</span>[]<span class="op">;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">mut</span> threads <span class="op">=</span> <span class="pp">vec!</span>[]<span class="op">;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">for</span> _ <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span><span class="dv">20</span> <span class="op">{</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    threads<span class="op">.</span>push(<span class="pp">thread::</span>spawn(<span class="kw">move</span> <span class="op">||</span> <span class="op">{</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>      write_to_nums(<span class="op">&amp;</span><span class="kw">mut</span> nums)<span class="op">;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>))<span class="op">;</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">for</span> thread <span class="kw">in</span> threads <span class="op">{</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> _ <span class="op">=</span> thread<span class="op">.</span>join()<span class="op">;</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">for</span> num <span class="kw">in</span> nums <span class="op">{</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> num)<span class="op">;</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section class="slide level3">
 
-<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="ex">error</span>[E0382]: use of moved value: <span class="kw">`</span><span class="ex">nums</span><span class="kw">`</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>  <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:13:32</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>   <span class="kw">|</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="ex">9</span>  <span class="kw">|</span>   <span class="bu">let</span> mut nums = vec![]<span class="kw">;</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>   <span class="kw">|</span>       <span class="ex">--------</span> move occurs because <span class="kw">`</span><span class="ex">nums</span><span class="kw">`</span> has type</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>   <span class="kw">|</span>       <span class="ex">--------</span> <span class="kw">`</span><span class="ex">std</span>::vec::Vec<span class="op">&lt;</span>i32<span class="op">&gt;</span><span class="kw">`</span>, which does</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>   <span class="kw">|</span>       <span class="ex">--------</span> not implement the <span class="kw">`</span><span class="ex">Copy</span><span class="kw">`</span> trait</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a><span class="ex">...</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a><span class="ex">13</span> <span class="kw">|</span>     <span class="ex">threads.push</span>(thread::spawn(move <span class="kw">||</span> <span class="kw">{</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>   <span class="kw">|</span>                                ^^^^^^^ <span class="ex">value</span> moved into</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>   <span class="kw">|</span>             <span class="ex">closure</span> here, in previous iteration of loop</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a><span class="ex">14</span> <span class="kw">|</span>       <span class="ex">write_to_nums</span>(<span class="kw">&amp;</span><span class="ex">mut</span> nums);</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a>   <span class="kw">|</span>                          ^^ <span class="ex">use</span> occurs due to use in closure</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">error</span><span class="op">[</span>E0382<span class="op">]</span><span class="ex">:</span> use of moved value: <span class="kw">`</span><span class="ex">nums</span><span class="kw">`</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--</span><span class="op">&gt;</span> src/main.rs:13:32</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">|</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">9</span>  <span class="kw">|</span>   <span class="bu">let</span> <span class="va">mut</span> <span class="va">nums</span> <span class="op">=</span> <span class="va">vec</span>![]<span class="kw">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>   <span class="kw">|</span>       <span class="ex">--------</span> move occurs because <span class="kw">`</span><span class="ex">nums</span><span class="kw">`</span> has type</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">|</span>       <span class="ex">--------</span> <span class="kw">`</span><span class="ex">std::vec::Vec</span><span class="op">&lt;</span>i32<span class="op">&gt;</span><span class="kw">`</span>, which does</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">|</span>       <span class="ex">--------</span> not implement the <span class="kw">`</span><span class="ex">Copy</span><span class="kw">`</span> trait</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ex">13</span> <span class="kw">|</span>     <span class="ex">threads.push</span><span class="er">(</span><span class="ex">thread::spawn</span><span class="er">(</span><span class="ex">move</span> <span class="kw">||</span> <span class="kw">{</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>   <span class="kw">|</span>                                <span class="ex">^^^^^^^</span> value moved into</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>   <span class="kw">|</span>             <span class="ex">closure</span> here, in previous iteration of loop</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="ex">14</span> <span class="kw">|</span>       <span class="ex">write_to_nums</span><span class="er">(</span><span class="kw">&amp;</span><span class="ex">mut</span> nums<span class="kw">);</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>   <span class="kw">|</span>                          <span class="ex">^^</span> use occurs due to use in closure</span></code></pre></div>
 </section>
 <section id="the-borrow-checker-at-first" class="slide level3">
 <h3>The Borrow Checker at first</h3>
@@ -401,7 +405,7 @@
 
   <script src="../_includes/reveal.js/dist/reveal.js"></script>
 
-  // reveal.js plugins
+  <!-- reveal.js plugins -->
   <script src="../_includes/reveal.js/plugin/notes/notes.js"></script>
   <script src="../_includes/reveal.js/plugin/search/search.js"></script>
   <script src="../_includes/reveal.js/plugin/zoom/zoom.js"></script>
@@ -411,8 +415,10 @@
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-        // Push each slide change to the browser history
-        history: true,
+      
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
 
         // reveal.js plugins
         plugins: [

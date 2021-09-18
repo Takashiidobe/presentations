@@ -4,3 +4,5 @@ new:
 	bin/new $(name)
 deploy:
 	make && ntl deploy --prod
+clean:
+	bin/clean

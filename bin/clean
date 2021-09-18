@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+rm presentations/index.html
+
+for d in $(ls ./presentations); do
+    (cd presentations/$d && make clean)
+done
